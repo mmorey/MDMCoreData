@@ -31,8 +31,8 @@ To create a new `MDMPersistenceController` call `initWithStoreURL:modelURL:` wit
 
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MDMCoreData.sqlite"];
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MDMCoreData" withExtension:@"momd"];
-    persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:storeURL 
-                                                                      modelURL:modelURL];
+    self.persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:storeURL 
+                                                                           modelURL:modelURL];
     
 Easily access the main queue managed object context via the public `managedObjectContext` property:
 
