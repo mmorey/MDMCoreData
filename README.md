@@ -107,6 +107,8 @@ For more information please see the [documentation](http://cocoadocs.org/docsets
 
 ## Installation
 
+### CocoaPods
+
 MDMCoreData is available through [CocoaPods](http://cocoapods.org), to install it simply add the following line to your Podfile:
 
     pod "MDMCoreData"
@@ -115,6 +117,8 @@ If you don't need everything, you can install only what you need:
 
     pod "MDMCoreData/MDMPersistenceController"
     pod "MDMCoreData/MDMFetchedResultsTableDataSource"
+
+### Manually
     
 To install manually just copy everything in the Classes directory into your Xcode project.
 
