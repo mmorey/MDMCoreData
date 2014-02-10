@@ -1,5 +1,5 @@
 //
-//  MDMCoreData.h
+//  NSManagedObject+MDMCoreDataAdditions.h
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
@@ -21,13 +21,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#ifndef MDMCoreData_h
-#define MDMCoreData_h
-
 #import <CoreData/CoreData.h>
-#import "MDMCoreDataMacros.h"
-#import "MDMPersistenceController.h"
-#import "MDMFetchedResultsTableDataSource.h"
-#import "NSManagedObject+MDMCoreDataAdditions.h"
 
-#endif
+/**
+ `NSManagedObject+MDMCoreDataAdditions` is a category on `NSManagedObject` that 
+ provides helper methods for eliminating boiler plate code.
+ */
+@interface NSManagedObject (MDMCoreDataAdditions)
+
+/**
+ Returns the name of the entity.
+ 
+ @return The name of the entity.
+ */
++ (NSString *)MDMCoreDataAdditionsEntityName;
+
+/**
+ Creates, configures, and returns an instance of the class for the entity.
+ 
+ @param context The managed object context to use.
+ 
+ @return A new, autoreleased, fully configured instance of the class for the entity. 
+ The instance has its entity description set and is inserted it into the `context`.
+ */
++ (instancetype)MDMCoreDataAdditionsInsertNewObjectIntoContext:(NSManagedObjectContext *)context;
+
+@end

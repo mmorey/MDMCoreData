@@ -1,5 +1,5 @@
 //
-//  MDMCoreData.h
+//  NSManagedObject+MDMCoreDataAdditions.m
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
@@ -21,13 +21,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#ifndef MDMCoreData_h
-#define MDMCoreData_h
-
-#import <CoreData/CoreData.h>
-#import "MDMCoreDataMacros.h"
-#import "MDMPersistenceController.h"
-#import "MDMFetchedResultsTableDataSource.h"
 #import "NSManagedObject+MDMCoreDataAdditions.h"
 
-#endif
+@implementation NSManagedObject (MDMCoreDataAdditions)
+
++ (NSString *)MDMCoreDataAdditionsEntityName {
+    
+    return NSStringFromClass(self);
+}
+
++ (instancetype)MDMCoreDataAdditionsInsertNewObjectIntoContext:(NSManagedObjectContext *)context {
+    
+    return [NSEntityDescription insertNewObjectForEntityForName:[self MDMCoreDataAdditionsEntityName]
+                                         inManagedObjectContext:context];
+}
+
+@end

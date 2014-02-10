@@ -1,5 +1,5 @@
 //
-//  MDMCoreData.h
+//  Event.h
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
@@ -21,13 +21,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#ifndef MDMCoreData_h
-#define MDMCoreData_h
-
+#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "MDMCoreDataMacros.h"
-#import "MDMPersistenceController.h"
-#import "MDMFetchedResultsTableDataSource.h"
-#import "NSManagedObject+MDMCoreDataAdditions.h"
 
-#endif
+@interface Event : NSManagedObject
+
+@property (nonatomic, retain) NSDate *timeStamp;
+
+@end

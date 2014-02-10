@@ -23,6 +23,7 @@
 
 #import "MDMDetailViewController.h"
 #import <MDMCoreData.h>
+#import "Event.h"
 
 @interface MDMDetailViewController ()
 
@@ -50,7 +51,7 @@
 - (void)configureView {
     
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
+        self.detailDescriptionLabel.text = [self.detailItem.timeStamp description];
     }
 }
 
@@ -90,17 +91,17 @@
 
 - (void)goToNext:(UISwipeGestureRecognizer *)recognizer {
     
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Event MDMCoreDataAdditionsEntityName]];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp > %@", [self.detailItem valueForKey:@"timeStamp"]]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp > %@", self.detailItem.timeStamp]];
     
-    NSManagedObject *object = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+    Event *event = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
         
         ALog(@"%@", error.localizedDescription);
     }] firstObject];
     
-    if(object) {
+    if(event) {
         
         [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
@@ -114,25 +115,25 @@
             }];
         } completion:^(BOOL finished) {
             
-            self.detailDescriptionLabel.text = [[object valueForKey:@"timeStamp"] description];
-            self.detailItem = object;
+            self.detailDescriptionLabel.text = [event.timeStamp description];
+            self.detailItem = event;
         }];
     }
 }
 
 - (void)goToLast:(UISwipeGestureRecognizer *)recognizer {
     
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Event MDMCoreDataAdditionsEntityName]];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp < %@", [self.detailItem valueForKey:@"timeStamp"]]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp < %@", self.detailItem.timeStamp]];
     
-    NSManagedObject *object = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+    Event *event = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
         
         ALog(@"%@", error.localizedDescription);
     }] firstObject];
     
-    if(object) {
+    if(event) {
         
         [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
            
@@ -147,8 +148,8 @@
             }];
         } completion:^(BOOL finished) {
             
-            self.detailDescriptionLabel.text = [[object valueForKey:@"timeStamp"] description];
-            self.detailItem = object;
+            self.detailDescriptionLabel.text = [event.timeStamp description];
+            self.detailItem = event;
         }];
     }
 }

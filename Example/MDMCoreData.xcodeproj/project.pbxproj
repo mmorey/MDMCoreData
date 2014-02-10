@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4A424DEB18A81414003A7C52 /* MDMCoreDataFatalErrorAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A424DEA18A81414003A7C52 /* MDMCoreDataFatalErrorAlertView.m */; };
 		4A424DED18A8188D003A7C52 /* MDMPersistenceControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A424DEC18A8188D003A7C52 /* MDMPersistenceControllerTests.m */; };
+		4A424E3A18A8E63C003A7C52 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A424E3918A8E63C003A7C52 /* Event.m */; };
 		4A6CC55F18A7E3430013DDAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6CC55E18A7E3430013DDAE /* Foundation.framework */; };
 		4A6CC56118A7E3430013DDAE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6CC56018A7E3430013DDAE /* CoreGraphics.framework */; };
 		4A6CC56318A7E3430013DDAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6CC56218A7E3430013DDAE /* UIKit.framework */; };
@@ -44,6 +45,8 @@
 		4A424DE918A81414003A7C52 /* MDMCoreDataFatalErrorAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMCoreDataFatalErrorAlertView.h; sourceTree = "<group>"; };
 		4A424DEA18A81414003A7C52 /* MDMCoreDataFatalErrorAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMCoreDataFatalErrorAlertView.m; sourceTree = "<group>"; };
 		4A424DEC18A8188D003A7C52 /* MDMPersistenceControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMPersistenceControllerTests.m; sourceTree = "<group>"; };
+		4A424E3818A8E63C003A7C52 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		4A424E3918A8E63C003A7C52 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		4A6CC55B18A7E3430013DDAE /* MDMCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MDMCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A6CC55E18A7E3430013DDAE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4A6CC56018A7E3430013DDAE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -145,6 +148,8 @@
 				4A424DEA18A81414003A7C52 /* MDMCoreDataFatalErrorAlertView.m */,
 				4A6CC57E18A7E3430013DDAE /* Images.xcassets */,
 				4A6CC57518A7E3430013DDAE /* MDMCoreData.xcdatamodeld */,
+				4A424E3818A8E63C003A7C52 /* Event.h */,
+				4A424E3918A8E63C003A7C52 /* Event.m */,
 				4A6CC56718A7E3430013DDAE /* Supporting Files */,
 			);
 			path = MDMCoreData;
@@ -319,6 +324,7 @@
 				4A6CC57118A7E3430013DDAE /* MDMAppDelegate.m in Sources */,
 				4A6CC57718A7E3430013DDAE /* MDMCoreData.xcdatamodeld in Sources */,
 				4A6CC57D18A7E3430013DDAE /* MDMDetailViewController.m in Sources */,
+				4A424E3A18A8E63C003A7C52 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

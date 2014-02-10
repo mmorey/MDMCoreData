@@ -25,6 +25,7 @@
 #import "MDMDetailViewController.h"
 #import <MDMCoreData.h>
 #import "MDMCoreDataFatalErrorAlertView.h"
+#import "Event.h"
 
 @interface MDMMasterViewController () <MDMFetchedResultsTableDataSourceDelegate>
 
@@ -66,7 +67,8 @@
         withObject:(id)object {
     
     UITableViewCell *tableCell = (UITableViewCell *)cell;
-    tableCell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    Event *event = (Event *)object;
+    tableCell.textLabel.text = [event.timeStamp description];
 }
 
 - (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource
@@ -81,10 +83,8 @@
 
 - (void)insertNewObject:(id)sender {
     
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    Event *newEvent = [Event MDMCoreDataAdditionsInsertNewObjectIntoContext:[self.fetchedResultsController managedObjectContext]];
+    newEvent.timeStamp = [NSDate date];
     [self save];
 }
 
@@ -92,9 +92,7 @@
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.persistenceController.managedObjectContext];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Event MDMCoreDataAdditionsEntityName]];
     [fetchRequest setFetchBatchSize:20];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
@@ -144,10 +142,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        
+        Event *selectedEvent = [self.tableDataSource selectedItem];
         MDMDetailViewController *detailVC = segue.destinationViewController;
-        detailVC.detailItem = object;
+        detailVC.detailItem = selectedEvent;
         detailVC.persistenceController = self.persistenceController;
     }
 }

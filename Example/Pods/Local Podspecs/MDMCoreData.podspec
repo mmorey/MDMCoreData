@@ -10,7 +10,6 @@ Pod::Spec.new do |s|
                        * __MDMFetchedResultsTableDataSource__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source and is used by a table view to access Core Data models.
                        DESC
   s.homepage         = 'https://github.com/mmorey/MDMHPCoreData'
-  s.screenshots      = 'https://github.com/mmorey/MDMCoreData/raw/master/screenshot_iOS7.png'
   s.license          = 'MIT'
   s.author           = { 'Matthew Morey' => 'me@matthewmorey.com' }
   s.source           = { :git => 'https://github.com/mmorey/MDMCoreData.git', :tag => s.version.to_s }
@@ -31,7 +30,14 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'MDMFetchedResultsTableDataSource' do |ss|
-    ss.source_files = 'Classes/MDMFetchedResultsTableDataSource/MDMFetchedResultsTableDataSource.{h,m}'
+    ss.ios.deployment_target = '6.0'
+    ss.ios.source_files = 'Classes/MDMFetchedResultsTableDataSource/MDMFetchedResultsTableDataSource.{h,m}'
+    ss.osx.source_files = ''
+    ss.dependency 'MDMCoreData/MDMCoreDataCore'
+  end
+
+  s.subspec 'NSManagedObject+MDMCoreDataAdditions' do |ss|
+    ss.ios.source_files = 'Classes/NSManagedObject+MDMCoreDataAdditions/NSManagedObject+MDMCoreDataAdditions.{h,m}'
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
   end
 
