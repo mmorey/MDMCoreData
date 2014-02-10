@@ -79,7 +79,9 @@
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }];
         }
-        else NSLog(@"%@", error.localizedDescription);
+        else {
+         ALog(@"%@", error.localizedDescription);
+        }
     }];
 }
 
@@ -90,9 +92,9 @@
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp > %@", [self.detailItem valueForKey:@"timeStamp"]]];
     
-    NSManagedObject *object = [self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
-        NSLog(@"%@", error.localizedDescription);
-    }].firstObject;
+    NSManagedObject *object = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+        ALog(@"%@", error.localizedDescription);
+    }] firstObject];
     if(object) {
         [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
@@ -119,9 +121,9 @@
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp < %@", [self.detailItem valueForKey:@"timeStamp"]]];
     
-    NSManagedObject *object = [self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
-        NSLog(@"%@", error.localizedDescription);
-    }].firstObject;
+    NSManagedObject *object = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+        ALog(@"%@", error.localizedDescription);
+    }] firstObject];
     if(object) {
         [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
