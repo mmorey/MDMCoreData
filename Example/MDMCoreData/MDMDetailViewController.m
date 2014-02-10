@@ -34,6 +34,17 @@
     
     [super viewDidLoad];
     [self configureView];
+    self.detailDescriptionLabel.userInteractionEnabled = YES;
+    UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(goToNext:)];
+    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    leftSwipe.numberOfTouchesRequired = 1;
+    
+    UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(goToLast:)];
+    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+    rightSwipe.numberOfTouchesRequired = 1;
+    
+    [self.detailDescriptionLabel addGestureRecognizer:rightSwipe];
+    [self.detailDescriptionLabel addGestureRecognizer:leftSwipe];
 }
 
 - (void)configureView {
@@ -52,6 +63,7 @@
 }
 
 - (IBAction)delete:(UIBarButtonItem *)sender {
+    
     [self.persistenceController deleteObject:self.detailItem saveContextAndWait:YES completion:^(NSError *error) {
         if(!error) {
             [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
@@ -69,5 +81,62 @@
         }
         else NSLog(@"%@", error.localizedDescription);
     }];
+}
+
+- (void)goToNext:(UISwipeGestureRecognizer *)recognizer {
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:YES];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp > %@", [self.detailItem valueForKey:@"timeStamp"]]];
+    
+    NSManagedObject *object = [self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
+    }].firstObject;
+    if(object) {
+        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
+            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
+                self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, -50, 0);
+            }];
+            [UIView addKeyframeWithRelativeStartTime:.5 relativeDuration:.3 animations:^{
+                self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 70, 0);
+            }];
+            [UIView addKeyframeWithRelativeStartTime:.8 relativeDuration:.2 animations:^{
+                self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, -20, 0);
+            }];
+        } completion:^(BOOL finished) {
+            self.detailDescriptionLabel.text = [[object valueForKey:@"timeStamp"] description];
+            self.detailItem = object;
+        }];
+    }
+}
+
+
+- (void)goToLast:(UISwipeGestureRecognizer *)recognizer {
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp < %@", [self.detailItem valueForKey:@"timeStamp"]]];
+    
+    NSManagedObject *object = [self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+        NSLog(@"%@", error.localizedDescription);
+    }].firstObject;
+    if(object) {
+        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
+            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
+                self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 50, 0);
+            }];
+            [UIView addKeyframeWithRelativeStartTime:.5 relativeDuration:.3 animations:^{
+                self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, -70, 0);
+            }];
+            [UIView addKeyframeWithRelativeStartTime:.8 relativeDuration:.2 animations:^{
+                self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 20, 0);
+            }];
+        } completion:^(BOOL finished) {
+            self.detailDescriptionLabel.text = [[object valueForKey:@"timeStamp"] description];
+            self.detailItem = object;
+        }];
+    }
 }
 @end
