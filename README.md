@@ -11,12 +11,15 @@ MDMCoreData is a growing collection of lightweight classes that make working wit
  
 * __MDMFetchedResultsTableDataSource (iOS)__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source and is used by a table view to access Core Data models.
 
+* __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ A category on managed objects that provides helper methods for eliminating boiler plate code.
+
 * ...
 
 |   | iOS | OS X | Documented | Tested  |
 |--:|:-:|:-:|:-:|:-:|
-| __MDMPersistenceController__         | ✓ | ✓ | ✓ | ✓ |
-| __MDMFetchedResultsTableDataSource__ | ✓ |   | ✓ |   |
+| __MDMPersistenceController__             | ✓ | ✓ | ✓ | ✓ |
+| __MDMFetchedResultsTableDataSource__     | ✓ |   | ✓ |   |
+| __NSManagedObject+MDMCoreDataAdditions__ | ✓ | ✓ | ✓ |   |
 | ... |   |   |
 
 ## Usage
@@ -25,6 +28,7 @@ To run the example project clone the repo and open `MDMCoreData.xcworkspace`.
 
 * [MDMPersistenceController](https://github.com/mmorey/MDMCoreData#mdmpersistencecontroller)
 * [MDMFetchedResultsTableDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultstabledatasource)
+* [NSManagedObject+MDMCoreDataAdditions](https://github.com/mmorey/MDMCoreData#NSManagedObject+MDMCoreDataAdditions)
 
 ### MDMPersistenceController
 
@@ -86,6 +90,18 @@ For cell configuration and object deletion `MDMFetchedResultsTableDataSource` re
 During large data imports you can easily pause `MDMFetchedResultsTableDataSource` for improved performance:
 
     self.tableDataSource.paused = YES;
+
+For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
+
+### NSManagedObject+MDMCoreDataAdditions
+
+Instead of hardcoding an entity name you can call `MDMCoreDataAdditionsEntityName`:
+
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Event MDMCoreDataAdditionsEntityName]];
+    
+New managed objections can be created in 1 line:
+
+    Event *newEvent = [Event MDMCoreDataAdditionsInsertNewObjectIntoContext:[self.fetchedResultsController managedObjectContext]];
 
 For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
