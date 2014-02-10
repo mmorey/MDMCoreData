@@ -251,18 +251,19 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 }
 
 #pragma mark - fetch and delete
-- (NSArray *)tryFetchRequest:(NSFetchRequest *)request error:(void (^)(NSError *error))errorBlock {
+- (NSArray *)executeFetchRequest:(NSFetchRequest *)request error:(void (^)(NSError *error))errorBlock {
     
     NSError *error;
     NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
-    if(error) {
+    if(error && errorBlock) {
         errorBlock(error);
         return nil;
     }
+    
     return results;
 }
 
-- (void)deleteObject:(NSManagedObject *)object withSaveAndWait:(BOOL)saveAndWait completion:(void (^)(NSError *error))completion {
+- (void)deleteObject:(NSManagedObject *)object saveContextAndWait:(BOOL)saveAndWait completion:(void (^)(NSError *error))completion {
     
     [self.managedObjectContext deleteObject:object];
     [self saveContextAndWait:saveAndWait completion:completion];
