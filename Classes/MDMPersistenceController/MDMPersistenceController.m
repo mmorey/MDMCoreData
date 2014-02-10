@@ -250,4 +250,23 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
     [[NSNotificationCenter defaultCenter] postNotificationName:MDMPersistenceControllerDidInitialize object:self];
 }
 
+#pragma mark - fetch and delete
+- (NSArray *)executeFetchRequest:(NSFetchRequest *)request error:(void (^)(NSError *error))errorBlock {
+    
+    NSError *error;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if(error && errorBlock) {
+        errorBlock(error);
+        return nil;
+    }
+    
+    return results;
+}
+
+- (void)deleteObject:(NSManagedObject *)object saveContextAndWait:(BOOL)saveAndWait completion:(void (^)(NSError *error))completion {
+    
+    [self.managedObjectContext deleteObject:object];
+    [self saveContextAndWait:saveAndWait completion:completion];
+}
+
 @end

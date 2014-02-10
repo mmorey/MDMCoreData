@@ -139,4 +139,47 @@
     self.notificationCounter += 1;
 }
 
+- (void)testDeleteAndSave {
+    
+    NSEntityDescription *testEntityDescription = [NSEntityDescription entityForName:@"Test"
+                                                             inManagedObjectContext:self.persistenceController.managedObjectContext];
+    NSManagedObject *testObject = [[NSManagedObject alloc] initWithEntity:testEntityDescription
+                                           insertIntoManagedObjectContext:self.persistenceController.managedObjectContext];
+    [testObject setValue:@"dummy" forKey:@"testString"];
+    
+    XCTAssertNotNil(testObject, @"Should not have nil object");
+    
+    [self.persistenceController saveContextAndWait:YES completion:nil];
+    
+    [self.persistenceController deleteObject:testObject saveContextAndWait:YES completion:nil];
+    
+    NSFetchRequest *fetchRequst = [[NSFetchRequest alloc] initWithEntityName:[testEntityDescription name]];
+    NSArray *results = [self.persistenceController.managedObjectContext executeFetchRequest:fetchRequst error:NULL];
+    
+    XCTAssertEqual(results, @[], @"Results should be empty");
+}
+
+- (void)testExecuteFetchRequest {
+    
+    NSEntityDescription *testEntityDescription = [NSEntityDescription entityForName:@"Test"
+                                                             inManagedObjectContext:self.persistenceController.managedObjectContext];
+    NSManagedObject *testObject = [[NSManagedObject alloc] initWithEntity:testEntityDescription
+                                           insertIntoManagedObjectContext:self.persistenceController.managedObjectContext];
+    [testObject setValue:@"dummy" forKey:@"testString"];
+    
+    XCTAssertNotNil(testObject, @"Should not have nil object");
+    
+    [self.persistenceController saveContextAndWait:YES completion:nil];
+    [self.persistenceController.managedObjectContext reset];
+    
+    NSFetchRequest *fetchRequst = [[NSFetchRequest alloc] initWithEntityName:[testEntityDescription name]];
+    NSArray *results = [self.persistenceController executeFetchRequest:fetchRequst error:^(NSError *error) {
+        XCTAssertNotNil(error, @"Error should never be nil here");
+    }];
+    NSManagedObject *persistedTestObject = [results lastObject];
+    
+    XCTAssertEqual([results count], (NSUInteger)1, @"Should have one item");
+    XCTAssertEqualObjects([persistedTestObject valueForKey:@"testString"], @"dummy", @"Should have a value of dummy");
+}
+
 @end
