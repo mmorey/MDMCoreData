@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 #import "MDMDetailViewController.h"
+#import <MDMCoreData.h>
 
 @interface MDMDetailViewController ()
 
@@ -50,4 +51,23 @@
     }
 }
 
+- (IBAction)delete:(UIBarButtonItem *)sender {
+    [self.persistenceController deleteObject:self.detailItem saveContextAndWait:YES completion:^(NSError *error) {
+        if(!error) {
+            [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
+                [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
+                    self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 30, -50);
+                    self.detailDescriptionLabel.transform = CGAffineTransformMakeScale(1.15, 1.15);
+                }];
+                [UIView addKeyframeWithRelativeStartTime:.5 relativeDuration:.5 animations:^{
+                    self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 30, CGRectGetHeight(self.view.frame));
+                    self.detailDescriptionLabel.transform = CGAffineTransformMakeScale(.2, .2);
+                }];
+            } completion:^(BOOL finished) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }];
+        }
+        else NSLog(@"%@", error.localizedDescription);
+    }];
+}
 @end
