@@ -19,8 +19,6 @@ MDMCoreData is a growing collection of lightweight classes that make working wit
 | __MDMFetchedResultsTableDataSource__ | ✓ |   | ✓ |   |
 | ... |   |   |
 
-![MDMCoreData Screenshot](https://github.com/mmorey/MDMCoreData/raw/master/screenshot_animated.gif)
-
 ## Usage
 
 To run the example project clone the repo and open `MDMCoreData.xcworkspace`.
