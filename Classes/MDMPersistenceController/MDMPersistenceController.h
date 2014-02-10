@@ -85,8 +85,8 @@ extern NSString *const MDMPersistenceControllerDidInitialize;
 
 /**
  Executes the given fetch request with the main managedObjectContext
- and returns an array of results if successful,
- otherwise returns nil and calls the error block.
+ and returns an array of results if successful, otherwise returns nil and calls the 
+ error block.
  
  @param request An NSFetchRequest that will execute on the managedObjectContext.
  @param error A block that will be called if an error occurs during the fetch.

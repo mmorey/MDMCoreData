@@ -65,21 +65,24 @@
 - (IBAction)delete:(UIBarButtonItem *)sender {
     
     [self.persistenceController deleteObject:self.detailItem saveContextAndWait:YES completion:^(NSError *error) {
+        
         if(!error) {
+            
             [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
-                [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
+                [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.5 animations:^{
                     self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 30, -50);
                     self.detailDescriptionLabel.transform = CGAffineTransformMakeScale(1.15, 1.15);
                 }];
-                [UIView addKeyframeWithRelativeStartTime:.5 relativeDuration:.5 animations:^{
+                [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
                     self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 30, CGRectGetHeight(self.view.frame));
-                    self.detailDescriptionLabel.transform = CGAffineTransformMakeScale(.2, .2);
+                    self.detailDescriptionLabel.transform = CGAffineTransformMakeScale(0.2, 0.2);
                 }];
             } completion:^(BOOL finished) {
+                
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }];
-        }
-        else {
+        } else {
+            
          ALog(@"%@", error.localizedDescription);
         }
     }];
@@ -93,9 +96,12 @@
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp > %@", [self.detailItem valueForKey:@"timeStamp"]]];
     
     NSManagedObject *object = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+        
         ALog(@"%@", error.localizedDescription);
     }] firstObject];
+    
     if(object) {
+        
         [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
                 self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, -50, 0);
@@ -107,12 +113,12 @@
                 self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, -20, 0);
             }];
         } completion:^(BOOL finished) {
+            
             self.detailDescriptionLabel.text = [[object valueForKey:@"timeStamp"] description];
             self.detailItem = object;
         }];
     }
 }
-
 
 - (void)goToLast:(UISwipeGestureRecognizer *)recognizer {
     
@@ -122,23 +128,29 @@
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timeStamp < %@", [self.detailItem valueForKey:@"timeStamp"]]];
     
     NSManagedObject *object = [[self.persistenceController executeFetchRequest:fetchRequest error:^(NSError *error) {
+        
         ALog(@"%@", error.localizedDescription);
     }] firstObject];
+    
     if(object) {
+        
         [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
-            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:.5 animations:^{
+           
+            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.5 animations:^{
                 self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 50, 0);
             }];
-            [UIView addKeyframeWithRelativeStartTime:.5 relativeDuration:.3 animations:^{
+            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.3 animations:^{
                 self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, -70, 0);
             }];
-            [UIView addKeyframeWithRelativeStartTime:.8 relativeDuration:.2 animations:^{
+            [UIView addKeyframeWithRelativeStartTime:0.8 relativeDuration:0.2 animations:^{
                 self.detailDescriptionLabel.frame = CGRectOffset(self.detailDescriptionLabel.frame, 20, 0);
             }];
         } completion:^(BOOL finished) {
+            
             self.detailDescriptionLabel.text = [[object valueForKey:@"timeStamp"] description];
             self.detailItem = object;
         }];
     }
 }
+
 @end
