@@ -11,7 +11,7 @@ MDMCoreData is a growing collection of lightweight classes that make working wit
  
 * __MDMFetchedResultsTableDataSource (iOS)__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source and is used by a table view to access Core Data models.
 
-* __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ A category on managed objects that provides helper methods for eliminating boiler plate code.
+* __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
 
 * ...
 

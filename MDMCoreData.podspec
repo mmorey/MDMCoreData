@@ -8,6 +8,8 @@ Pod::Spec.new do |s|
                        * __MDMPersistenceController__ - A lightweight class that sets up an efficient Core Data stack with support for creating multiple child managed object contexts. A private managed object context is used for asynchronous saving. A SQLite store is used for data persistence.
 
                        * __MDMFetchedResultsTableDataSource__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source and is used by a table view to access Core Data models.
+
+                       * __NSManagedObject+MDMCoreDataAdditions__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
                        DESC
   s.homepage         = 'https://github.com/mmorey/MDMHPCoreData'
   s.license          = 'MIT'
