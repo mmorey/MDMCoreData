@@ -22,10 +22,11 @@
 //  THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-
+@class MDMPersistenceController;
 @interface MDMDetailViewController : UIViewController
 
 @property (nonatomic, strong) id detailItem;
+@property (nonatomic, strong) MDMPersistenceController *persistenceController;
 @property (nonatomic, weak) IBOutlet UILabel *detailDescriptionLabel;
 
 @end

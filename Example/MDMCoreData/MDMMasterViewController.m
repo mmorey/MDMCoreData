@@ -146,7 +146,9 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
+        MDMDetailViewController *detailVC = segue.destinationViewController;
+        detailVC.detailItem = object;
+        detailVC.persistenceController = self.persistenceController;
     }
 }
 

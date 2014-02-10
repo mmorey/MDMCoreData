@@ -82,5 +82,28 @@ extern NSString *const MDMPersistenceControllerDidInitialize;
  @param completion An optional block to be executed when saving has completed.
  */
 - (void)saveContextAndWait:(BOOL)wait completion:(void (^)(NSError *error))completion;
+
+/**
+ Executes the given fetch request with the main managedObjectContext
+ and returns an array of results if successful, otherwise returns nil and calls the 
+ error block.
+ 
+ @param request An NSFetchRequest that will execute on the managedObjectContext.
+ @param error A block that will be called if an error occurs during the fetch.
+ 
+ @return An NSArray of the results, or nil if an error occured. If there were no results
+ and no error, an empty array is returned.
+ */
+- (NSArray *)executeFetchRequest:(NSFetchRequest *)request error:(void (^)(NSError *error))errorBlock;
+
+/**
+ Deletes the given NSMangedObject using the main managedObjectContext and saves the changes by
+ Passing the given BOOL and completion block as parameters to `-saveContextAndWait:completion:`.
+ 
+ @param object The NSMangedObject to delete.
+ @param saveAndWait The BOOL that will be passed to `-saveContextAndWait:completion:`
+ @param completion An optional block that will be passed to `-saveContextAndWait:completion:`.
+ */
+- (void)deleteObject:(NSManagedObject *)object saveContextAndWait:(BOOL)saveAndWait completion:(void (^)(NSError *error))completion;
     
 @end
