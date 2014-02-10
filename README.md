@@ -23,6 +23,9 @@ MDMCoreData is a growing collection of lightweight classes that make working wit
 
 To run the example project clone the repo and open `MDMCoreData.xcworkspace`.
 
+* [MDMPersistenceController](https://github.com/mmorey/MDMCoreData#mdmpersistencecontroller)
+* [MDMFetchedResultsTableDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultstabledatasource)
+
 ### MDMPersistenceController
 
 To create a new `MDMPersistenceController` call `initWithStoreURL:modelURL:` with the URLs of the SQLite file and data model.
@@ -50,6 +53,8 @@ New child context can be created with the main queue or a private queue for back
     NSManagedObjectContext *privateContextForScratchPadWork = [self.persistenceController newChildManagedObjectContext];
     
     NSManagedObjectContext *privateContextForDoingBackgroundWork = [self.persistenceController newPrivateChildManagedObjectContext];
+    
+For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
 ### MDMFetchedResultsTableDataSource
 
@@ -82,6 +87,8 @@ During large data imports you can easily pause `MDMFetchedResultsTableDataSource
 
     self.tableDataSource.paused = YES;
 
+For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
+
 ## Installation
 
 MDMCoreData is available through [CocoaPods](http://cocoapods.org), to install it simply add the following line to your Podfile:
@@ -96,6 +103,16 @@ If you don't need everything, you can install only what you need:
 To install manually just copy everything in the Classes directory into your Xcode project.
 
 _**Important:**_ If your project doesn't use ARC you must add the `-fobjc-arc` compiler flag to all MDMCoreData implementation files in Target Settings > Build Phases > Compile Sources.
+
+## Contributing
+
+Pull request are welcomed. To add functionality or to make changes:
+
+1. Fork this repo
+2. Open `MDMCoreData.xcworkspace` in the Example directory
+3. Make changes to the necessary files in the Pods sub project
+4. Ensure new public methods are documented and tested
+5. Submit a pull request
 
 ## Author
 
