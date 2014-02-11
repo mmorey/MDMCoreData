@@ -34,62 +34,75 @@ To run the example project clone the repo and open `MDMCoreData.xcworkspace`.
 
 To create a new `MDMPersistenceController` call `initWithStoreURL:modelURL:` with the URLs of the SQLite file and data model.
 
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MDMCoreData.sqlite"];
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MDMCoreData" withExtension:@"momd"];
-    self.persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:storeURL 
-                                                                           modelURL:modelURL];
-    
+```objective-c
+NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MDMCoreData.sqlite"];
+NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MDMCoreData" withExtension:@"momd"];
+self.persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:storeURL 
+                                                                       modelURL:modelURL];
+```
+
 Easily access the main queue managed object context via the public `managedObjectContext` property:
 
-    self.persistenceController.managedObjectContext
+```objective-c
+self.persistenceController.managedObjectContext
+```
 
 To save changes, call `saveContextAndWait:completion:` with an optional completion block:
 
-    [self.persistenceController saveContextAndWait:NO completion:^(NSError *error) {
+```objective-c
+[self.persistenceController saveContextAndWait:NO completion:^(NSError *error) {
         
-        if (error == nil) {
-            NSLog(@"Successfully saved all the things!");
-        }
-    }];
+    if (error == nil) {
+        NSLog(@"Successfully saved all the things!");
+    }
+}];
+```
 
 New child context can be created with the main queue or a private queue for background work:
 
-    NSManagedObjectContext *privateContextForScratchPadWork = [self.persistenceController newChildManagedObjectContext];
+```objective-c
+NSManagedObjectContext *privateContextForScratchPadWork = [self.persistenceController newChildManagedObjectContext];
     
-    NSManagedObjectContext *privateContextForDoingBackgroundWork = [self.persistenceController newPrivateChildManagedObjectContext];
-    
+NSManagedObjectContext *privateContextForDoingBackgroundWork = [self.persistenceController newPrivateChildManagedObjectContext];
+```
 For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
 ### MDMFetchedResultsTableDataSource
 
 To create a new `MDMFetchedResultsTableDataSource` call `initWithTableView:fetchedResultsController:` with a table view and fetched results controller. You also need to set the `delegate` and `reuseIdentifier`.
 
-    self.tableDataSource = [[MDMFetchedResultsTableDataSource alloc] initWithTableView:self.tableView
-                                                              fetchedResultsController:[self fetchedResultsController]];
-    self.tableDataSource.delegate = self;
-    self.tableDataSource.reuseIdentifier = @"Cell";
-    self.tableView.dataSource = self.tableDataSource;
+```objective-c
+self.tableDataSource = [[MDMFetchedResultsTableDataSource alloc] initWithTableView:self.tableView
+                                                          fetchedResultsController:[self fetchedResultsController]];
+self.tableDataSource.delegate = self;
+self.tableDataSource.reuseIdentifier = @"Cell";
+self.tableView.dataSource = self.tableDataSource;
+```
 
 For cell configuration and object deletion `MDMFetchedResultsTableDataSource` requires all `MDMFetchedResultsTableDataSourceDelegate` methods be implemented:
 
-	- (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource
-         configureCell:(id)cell
-            withObject:(id)object {
+```objective-c
+- (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource
+     configureCell:(id)cell
+        withObject:(id)object {
 	    
-	    UITableViewCell *tableCell = (UITableViewCell *)cell;
-	    tableCell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
-	}
+    UITableViewCell *tableCell = (UITableViewCell *)cell;
+    tableCell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+}
 	
-	- (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource 
-	      deleteObject:(id)object 
-	       atIndexPath:(NSIndexPath *)indexPath {
+- (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource 
+      deleteObject:(id)object 
+       atIndexPath:(NSIndexPath *)indexPath {
 	    
-	    [self.persistenceController.managedObjectContext deleteObject:object];
-	}
+    [self.persistenceController.managedObjectContext deleteObject:object];
+}
+```
 
 During large data imports you can easily pause `MDMFetchedResultsTableDataSource` for improved performance:
 
-    self.tableDataSource.paused = YES;
+```objective-c
+self.tableDataSource.paused = YES;
+```
 
 For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
@@ -97,11 +110,15 @@ For more information please see the [documentation](http://cocoadocs.org/docsets
 
 Instead of hardcoding an entity name you can call `MDMCoreDataAdditionsEntityName`:
 
+```objective-c
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Event MDMCoreDataAdditionsEntityName]];
-    
+```
+
 New managed objections can be created in 1 line:
 
-    Event *newEvent = [Event MDMCoreDataAdditionsInsertNewObjectIntoContext:[self.fetchedResultsController managedObjectContext]];
+```objective-c
+Event *newEvent = [Event MDMCoreDataAdditionsInsertNewObjectIntoContext:[self.fetchedResultsController managedObjectContext]];
+```
 
 For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
