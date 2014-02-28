@@ -24,7 +24,7 @@ MDMCoreData is a growing collection of classes that make working with Core Data 
 
 ## Usage
 
-To run the example project clone the repo and open `MDMCoreData.xcworkspace`.
+To run the example project clone the repo and open `MDMCoreData.xcworkspace`. A video tutorial is available at [NSScreencast](http://nsscreencast.com/episodes/109-mdmcoredata).
 
 * [MDMPersistenceController](https://github.com/mmorey/MDMCoreData#mdmpersistencecontroller)
 * [MDMFetchedResultsTableDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultstabledatasource)
@@ -166,3 +166,4 @@ MDMCoreData is based on and inspired by the work of many:
 * [objc.io Issue #4 Core Data](http://www.objc.io/issue-4/)
 * [Marcus Zarra](https://twitter.com/mzarra)
 * [High Performance Core Data](http://highperformancecoredata.com/)
+* [NSScreencast](http://nsscreencast.com/episodes/109-mdmcoredata)
