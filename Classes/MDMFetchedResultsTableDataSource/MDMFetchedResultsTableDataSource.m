@@ -36,8 +36,8 @@
 
 - (id)initWithTableView:(UITableView *)tableView
 fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController {
-
-    if ([super init]) {
+    self = [super init];
+    if (self) {
         
         _tableView = tableView;
         _fetchedResultsController = fetchedResultsController;
