@@ -17,8 +17,8 @@
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView
     fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController {
-
-    if([super init]) {
+    self = [super init];
+    if(self) {
 
         _collectionView = collectionView;
         _fetchedResultsController = fetchedResultsController;
