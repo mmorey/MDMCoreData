@@ -12,6 +12,8 @@
 		55FC0811DF2344039F0BE1CE /* MDMPersistenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC03C4E730C4B5E938EB169 /* MDMPersistenceController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5723C2B96CB04E6783844C6A /* MDMCoreDataMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = B86C3F5715EF4364BE779B01 /* MDMCoreDataMacros.h */; };
 		63A49AA50BE240109300F4C6 /* libPods-MDMCoreData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B30C54C60FA420EA72D2920 /* libPods-MDMCoreData.a */; };
+		7426C4880D2087858D361DEE /* MDMFetchedResultsCollectionViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 7426C31D88A34926863E5F21 /* MDMFetchedResultsCollectionViewDataSource.h */; };
+		7426C87033D2042C85C3A042 /* MDMFetchedResultsCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7426C3B0B1BAC3FC10924713 /* MDMFetchedResultsCollectionViewDataSource.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7AB61843939F4B4EBF2218C7 /* MDMFetchedResultsTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 84468344B2C747C58B4C14EA /* MDMFetchedResultsTableDataSource.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C6029C218A44AD789A053D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D696E669610403AB6B24263 /* Foundation.framework */; };
 		A831FEAA2D06447BAFD01DEB /* MDMCoreData.h in Headers */ = {isa = PBXBuildFile; fileRef = 812D61D66B444A2F84F68EC7 /* MDMCoreData.h */; };
@@ -42,6 +44,8 @@
 		4DF6ECE9FC8848658B7F670A /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6B30C54C60FA420EA72D2920 /* libPods-MDMCoreData.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MDMCoreData.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D696E669610403AB6B24263 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		7426C31D88A34926863E5F21 /* MDMFetchedResultsCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMFetchedResultsCollectionViewDataSource.h; sourceTree = "<group>"; };
+		7426C3B0B1BAC3FC10924713 /* MDMFetchedResultsCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMFetchedResultsCollectionViewDataSource.m; sourceTree = "<group>"; };
 		7D1CCBAC594B478890E4ADC4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.xcconfig; sourceTree = "<group>"; };
 		812D61D66B444A2F84F68EC7 /* MDMCoreData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDMCoreData.h; path = Classes/MDMCoreData.h; sourceTree = "<group>"; };
 		84468344B2C747C58B4C14EA /* MDMFetchedResultsTableDataSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDMFetchedResultsTableDataSource.m; path = Classes/MDMFetchedResultsTableDataSource/MDMFetchedResultsTableDataSource.m; sourceTree = "<group>"; };
@@ -104,6 +108,15 @@
 				DC8EF147E0E643BCA4350A89 /* MDMCoreData */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		7426CE6ABB08B48107B64B70 /* MDMFetchedResultsCollectionDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				7426C31D88A34926863E5F21 /* MDMFetchedResultsCollectionViewDataSource.h */,
+				7426C3B0B1BAC3FC10924713 /* MDMFetchedResultsCollectionViewDataSource.m */,
+			);
+			name = MDMFetchedResultsCollectionDataSource;
 			sourceTree = "<group>";
 		};
 		7CCE46D6DB9942EDA3C7329D /* Support Files */ = {
@@ -185,6 +198,7 @@
 				0472B3CE9881420596D6EB62 /* MDMPersistenceController */,
 				BDE93F8E2586431D8720E7D5 /* NSManagedObject+MDMCoreDataAdditions */,
 				7CCE46D6DB9942EDA3C7329D /* Support Files */,
+				7426CE6ABB08B48107B64B70 /* MDMFetchedResultsCollectionDataSource */,
 			);
 			name = MDMCoreData;
 			path = ../..;
@@ -219,6 +233,7 @@
 				C96B831EECA542C49B100358 /* MDMFetchedResultsTableDataSource.h in Headers */,
 				02C6CFB26E914D8899FB1080 /* MDMPersistenceController.h in Headers */,
 				F7493D064C4C4778ADEC42CE /* NSManagedObject+MDMCoreDataAdditions.h in Headers */,
+				7426C4880D2087858D361DEE /* MDMFetchedResultsCollectionViewDataSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +317,7 @@
 				55FC0811DF2344039F0BE1CE /* MDMPersistenceController.m in Sources */,
 				E5807E60A3E54453A644B934 /* NSManagedObject+MDMCoreDataAdditions.m in Sources */,
 				E48B3016F76A4F44BD350198 /* Pods-MDMCoreData-dummy.m in Sources */,
+				7426C87033D2042C85C3A042 /* MDMFetchedResultsCollectionViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
