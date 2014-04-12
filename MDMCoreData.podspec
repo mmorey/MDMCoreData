@@ -24,11 +24,13 @@ Pod::Spec.new do |s|
 
   s.subspec 'MDMCoreDataCore' do |ss|
     ss.source_files = 'Classes/MDMCoreDataCore/*.{h,m}'
+    ss.requires_arc = true
   end
 
   s.subspec 'MDMPersistenceController' do |ss|
     ss.source_files = 'Classes/MDMPersistenceController/MDMPersistenceController.{h,m}'
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
   s.subspec 'MDMFetchedResultsTableDataSource' do |ss|
@@ -36,11 +38,13 @@ Pod::Spec.new do |s|
     ss.ios.source_files = 'Classes/MDMFetchedResultsTableDataSource/MDMFetchedResultsTableDataSource.{h,m}'
     ss.osx.source_files = ''
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
   s.subspec 'NSManagedObject+MDMCoreDataAdditions' do |ss|
     ss.ios.source_files = 'Classes/NSManagedObject+MDMCoreDataAdditions/NSManagedObject+MDMCoreDataAdditions.{h,m}'
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
 end
