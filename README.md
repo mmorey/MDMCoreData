@@ -124,7 +124,7 @@ Instead of hardcoding an entity name you can call `MDMCoreDataAdditionsEntityNam
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Event MDMCoreDataAdditionsEntityName]];
 ```
 
-New managed objections can be created with only one line of code.
+New managed objects can be created with only one line of code.
 
 ```objective-c
 Event *newEvent = [Event MDMCoreDataAdditionsInsertNewObjectIntoContext:[self.fetchedResultsController managedObjectContext]];
