@@ -1,11 +1,11 @@
 # MDMCoreData
 
-A collection of lightweight Core Data classes for iOS and OS X.
+A collection of lightweight Core Data classes for iOS and OS X as seen on [NSScreencast](http://nsscreencast.com/episodes/109-mdmcoredata).
 
 [![Version](https://cocoapod-badges.herokuapp.com/v/MDMCoreData/badge.png)](http://cocoadocs.org/docsets/MDMCoreData)
 [![Platform](https://cocoapod-badges.herokuapp.com/p/MDMCoreData/badge.png)](http://cocoadocs.org/docsets/MDMCoreData)
 
-MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. All classes are documented and unit tested.
+MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. It is a much better alternative to using the Xcode Core Data Template. All classes are documented and a majority are unit tested.
 
 * __MDMPersistenceController (iOS, OS X)__ - A handy controller that sets up an efficient Core Data stack with support for creating multiple child managed object contexts. It has a built-in private managed object context that does asynchronous saving for you with a SQLite store.
 
@@ -13,15 +13,24 @@ MDMCoreData is a growing collection of classes that make working with Core Data 
 
 * __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
 
-* ...
+* __MDMFetchedResultsCollectionDataSource (iOS)__ -  Coming soon.
 
 |   | iOS | OS X | Documented | Tested  |
 |--:|:-:|:-:|:-:|:-:|
-| __MDMPersistenceController__             | ✓ | ✓ | ✓ | ✓ |
-| __MDMFetchedResultsTableDataSource__     | ✓ |   | ✓ |   |
-| __MDMFetchedResultsCollectionDataSource__ | ✓ |  | ✓ |   |  
-| __NSManagedObject+MDMCoreDataAdditions__ | ✓ | ✓ | ✓ |   |
-| ... |   |   |
+| __MDMPersistenceController__                    | ✓ | ✓ | ✓ | ✓ |
+| __MDMFetchedResultsTableDataSource__            | ✓ |   | ✓ |   |
+| __NSManagedObject+MDMCoreDataAdditions__        | ✓ | ✓ | ✓ |   |
+| __MDMFetchedResultsCollectionDataSource (iOS)__ |   |   |   |   |
+
+
+## Table of Contents
+
+* [Usage](https://github.com/mmorey/MDMCoreData#usage)
+* [Installation](https://github.com/mmorey/MDMCoreData#installation)
+* [Contributing](https://github.com/mmorey/MDMCoreData#contributing)
+* [Author](https://github.com/mmorey/MDMCoreData#author)
+* [License](https://github.com/mmorey/MDMCoreData#license)
+* [Attribution](https://github.com/mmorey/MDMCoreData#attribution)
 
 ## Usage
 
@@ -116,7 +125,7 @@ Instead of hardcoding an entity name you can call `MDMCoreDataAdditionsEntityNam
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Event MDMCoreDataAdditionsEntityName]];
 ```
 
-New managed objections can be created with only one line of code.
+New managed objects can be created with only one line of code.
 
 ```objective-c
 Event *newEvent = [Event MDMCoreDataAdditionsInsertNewObjectIntoContext:[self.fetchedResultsController managedObjectContext]];
