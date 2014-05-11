@@ -50,7 +50,7 @@
     self.navigationItem.rightBarButtonItem = addButton;
 
     [self setupDateFormatters];
-    [self setupTableDataSource];
+    [self setupCollectionDataSource];
 }
 
 - (void)setupDateFormatters {
@@ -62,7 +62,7 @@
     [self.subtitleDateFormatter setDateFormat:@"HH:mm:ss"];
 }
 
-- (void)setupTableDataSource {
+- (void)setupCollectionDataSource {
     
     ZAssert(self.persistenceController.managedObjectContext, @"Forgot to set managed object context");
     
@@ -86,7 +86,7 @@
     collectionViewCell.subtitleLabel.text = [self.subtitleDateFormatter stringFromDate:event.timeStamp];
 }
 
-- (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource
+- (void)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource
       deleteObject:(id)object
        atIndexPath:(NSIndexPath *)indexPath {
     
