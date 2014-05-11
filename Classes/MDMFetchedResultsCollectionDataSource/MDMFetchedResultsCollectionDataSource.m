@@ -1,5 +1,5 @@
 //
-//  MDMFetchedResultsTableDataSource.m
+//  MDMFetchedResultsCollectionDataSource.m
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
@@ -120,7 +120,7 @@
     return [self.fetchedResultsController indexPathForObject:object];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 

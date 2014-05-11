@@ -1,5 +1,5 @@
 //
-//  MDMFetchedResultsTableDataSource.m
+//  MDMFetchedResultsCollectionDataSource.h
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
