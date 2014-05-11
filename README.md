@@ -37,7 +37,7 @@ To run the example project clone the repo and open `MDMCoreData.xcworkspace`. A 
 
 * [MDMPersistenceController](https://github.com/mmorey/MDMCoreData#mdmpersistencecontroller)
 * [MDMFetchedResultsTableDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultstabledatasource)
-* [MDMFetchedResultsCollectionViewDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultsdatasource)
+* [MDMFetchedResultsCollectionDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultsdatasource)
 * [NSManagedObject+MDMCoreDataAdditions](https://github.com/mmorey/MDMCoreData#nsmanagedobjectmdmcoredataadditions)
 
 ### MDMPersistenceController
