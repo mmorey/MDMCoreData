@@ -39,7 +39,10 @@
     if(self) {
 
         _collectionView = collectionView;
+        _sectionChanges = [NSMutableArray array];
+        _objectChanges = [NSMutableArray array];
         _fetchedResultsController = fetchedResultsController;
+        
         [self setupFetchedResultsController:fetchedResultsController];
     }
 
@@ -278,4 +281,5 @@
 
     return shouldReload;
 }
+
 @end
