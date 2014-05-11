@@ -22,10 +22,11 @@
 //  THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "MDMPersistenceControllerViewControllerProtocol.h"
 
 @class MDMPersistenceController;
 
-@interface MDMMasterViewController : UITableViewController 
+@interface MDMMasterViewController : UITableViewController <MDMPersistenceControllerViewControllerProtocol>
 
 @property (nonatomic, strong) MDMPersistenceController *persistenceController;
 

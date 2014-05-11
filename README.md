@@ -8,20 +8,19 @@ A collection of lightweight Core Data classes for iOS and OS X as seen on [NSScr
 MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. It is a much better alternative to using the Xcode Core Data Template. All classes are documented and a majority are unit tested.
 
 * __MDMPersistenceController (iOS, OS X)__ - A handy controller that sets up an efficient Core Data stack with support for creating multiple child managed object contexts. It has a built-in private managed object context that does asynchronous saving for you with a SQLite store.
- 
+
 * __MDMFetchedResultsTableDataSource (iOS)__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source.
 
-* __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
+* __MDMFetchedResultsCollectionDataSource (iOS)__ - A class mostly full of boiler plate that implements the fetched results controller delegate and a collection data source.
 
-* __MDMFetchedResultsCollectionDataSource (iOS)__ -  Coming soon.
+* __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
 
 |   | iOS | OS X | Documented | Tested  |
 |--:|:-:|:-:|:-:|:-:|
 | __MDMPersistenceController__                    | ✓ | ✓ | ✓ | ✓ |
 | __MDMFetchedResultsTableDataSource__            | ✓ |   | ✓ |   |
+| __MDMFetchedResultsCollectionDataSource__       | ✓ |   | ✓ |   |
 | __NSManagedObject+MDMCoreDataAdditions__        | ✓ | ✓ | ✓ |   |
-| __MDMFetchedResultsCollectionDataSource (iOS)__ |   |   |   |   |
-
 
 ## Table of Contents
 
@@ -38,6 +37,7 @@ To run the example project clone the repo and open `MDMCoreData.xcworkspace`. A 
 
 * [MDMPersistenceController](https://github.com/mmorey/MDMCoreData#mdmpersistencecontroller)
 * [MDMFetchedResultsTableDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultstabledatasource)
+* [MDMFetchedResultsCollectionDataSource](https://github.com/mmorey/MDMCoreData#mdmfetchedresultsdatasource)
 * [NSManagedObject+MDMCoreDataAdditions](https://github.com/mmorey/MDMCoreData#nsmanagedobjectmdmcoredataadditions)
 
 ### MDMPersistenceController
@@ -47,7 +47,7 @@ To create a new `MDMPersistenceController` call `initWithStoreURL:modelURL:` wit
 ```objective-c
 NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MDMCoreData.sqlite"];
 NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MDMCoreData" withExtension:@"momd"];
-self.persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:storeURL 
+self.persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:storeURL
                                                                        modelURL:modelURL];
 ```
 
@@ -61,7 +61,7 @@ To save changes, call `saveContextAndWait:completion:` with an optional completi
 
 ```objective-c
 [self.persistenceController saveContextAndWait:NO completion:^(NSError *error) {
-        
+
     if (error == nil) {
         NSLog(@"Successfully saved all the things!");
     }
@@ -72,14 +72,14 @@ New child contexts can be created with the main queue or a private queue for bac
 
 ```objective-c
 NSManagedObjectContext *privateContextForScratchPadWork = [self.persistenceController newChildManagedObjectContext];
-    
+
 NSManagedObjectContext *privateContextForDoingBackgroundWork = [self.persistenceController newPrivateChildManagedObjectContext];
 ```
 For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
-### MDMFetchedResultsTableDataSource
+### MDMFetchedResultsDataSource
 
-To create a new `MDMFetchedResultsTableDataSource` call `initWithTableView:fetchedResultsController:` with a table view and fetched results controller. You also need to set the `delegate` and `reuseIdentifier`.
+To create a new `MDMFetchedResultsTableDataSource` or `MDMFetchedResultsCollectionViewDataSource` call `initWithTableView:fetchedResultsController:` or `initWithCollectionView:fetchedResultsController:`with a table view or collection view and fetched results controller. You also need to set the `delegate` and `reuseIdentifier`.
 
 ```objective-c
 self.tableDataSource = [[MDMFetchedResultsTableDataSource alloc] initWithTableView:self.tableView
@@ -95,15 +95,15 @@ For cell configuration and object deletion, `MDMFetchedResultsTableDataSource` r
 - (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource
      configureCell:(id)cell
         withObject:(id)object {
-	    
+
     UITableViewCell *tableCell = (UITableViewCell *)cell;
     tableCell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
 }
-	
-- (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource 
-      deleteObject:(id)object 
+
+- (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource
+      deleteObject:(id)object
        atIndexPath:(NSIndexPath *)indexPath {
-	    
+
     [self.persistenceController.managedObjectContext deleteObject:object];
 }
 ```
@@ -146,7 +146,7 @@ If you don't need everything, you can install only what you need using separate 
     pod "MDMCoreData/MDMFetchedResultsTableDataSource"
 
 ### Manually
-    
+
 To install manually, just copy everything in the `Classes` directory into your Xcode project.
 
 _**Important:**_ If your project doesn't use ARC you must add the `-fobjc-arc` compiler flag to all MDMCoreData implementation files in Target Settings > Build Phases > Compile Sources.
@@ -163,7 +163,7 @@ Pull request are welcomed. To add functionality or to make changes:
 
 ## Author
 
-Created by [Matthew Morey](http://matthewmorey.com) and other [contributors](https://github.com/mmorey/MDMCoreData/graphs/contributors).
+Created by [Matthew Morey](http://matthewmorey.com), [Terry Lewis II](http://ifnotapps.com/) and other [contributors](https://github.com/mmorey/MDMCoreData/graphs/contributors).
 
 ## License
 

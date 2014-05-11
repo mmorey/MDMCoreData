@@ -1,5 +1,5 @@
 //
-//  MDMCoreData.h
+//  MDMMasterCollectionViewController.h
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
@@ -21,14 +21,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#ifndef MDMCoreData_h
-#define MDMCoreData_h
+#import <UIKit/UIKit.h>
+#import "MDMPersistenceControllerViewControllerProtocol.h"
 
-#import <CoreData/CoreData.h>
-#import "MDMCoreDataMacros.h"
-#import "MDMPersistenceController.h"
-#import "MDMFetchedResultsTableDataSource.h"
-#import "MDMFetchedResultsCollectionDataSource.h"
-#import "NSManagedObject+MDMCoreDataAdditions.h"
+@class MDMPersistenceController;
 
-#endif
+@interface MDMMasterCollectionViewController : UICollectionViewController <MDMPersistenceControllerViewControllerProtocol>
+
+@property (nonatomic, strong) MDMPersistenceController *persistenceController;
+
+@end

@@ -28,6 +28,8 @@
 		4A6CC58918A7E3430013DDAE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6CC56418A7E3430013DDAE /* CoreData.framework */; };
 		4A6CC59118A7E3430013DDAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A6CC58F18A7E3430013DDAE /* InfoPlist.strings */; };
 		4A6CC59318A7E3430013DDAE /* MDMCoreDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6CC59218A7E3430013DDAE /* MDMCoreDataTests.m */; };
+		B25DB11D191FA1E50072F80F /* MDMMasterCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25DB11C191FA1E50072F80F /* MDMMasterCollectionViewController.m */; };
+		B25DB121191FACDC0072F80F /* MDMCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25DB120191FACDC0072F80F /* MDMCollectionViewCell.m */; };
 		B2C947ABB14240BCB44536BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 624CC8F05F814C8B8350F5A1 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +74,11 @@
 		4A6CC59218A7E3430013DDAE /* MDMCoreDataTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDMCoreDataTests.m; sourceTree = "<group>"; };
 		624CC8F05F814C8B8350F5A1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		639A4D4D07A149AB8FA0E86B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B25DB11B191FA1E50072F80F /* MDMMasterCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMMasterCollectionViewController.h; sourceTree = "<group>"; };
+		B25DB11C191FA1E50072F80F /* MDMMasterCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMMasterCollectionViewController.m; sourceTree = "<group>"; };
+		B25DB11E191FA8E20072F80F /* MDMPersistenceControllerViewControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDMPersistenceControllerViewControllerProtocol.h; sourceTree = "<group>"; };
+		B25DB11F191FACDC0072F80F /* MDMCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDMCollectionViewCell.h; sourceTree = "<group>"; };
+		B25DB120191FACDC0072F80F /* MDMCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDMCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +147,13 @@
 				4A6CC56F18A7E3430013DDAE /* MDMAppDelegate.h */,
 				4A6CC57018A7E3430013DDAE /* MDMAppDelegate.m */,
 				4A6CC57218A7E3430013DDAE /* Main.storyboard */,
+				B25DB11E191FA8E20072F80F /* MDMPersistenceControllerViewControllerProtocol.h */,
 				4A6CC57818A7E3430013DDAE /* MDMMasterViewController.h */,
 				4A6CC57918A7E3430013DDAE /* MDMMasterViewController.m */,
+				B25DB11B191FA1E50072F80F /* MDMMasterCollectionViewController.h */,
+				B25DB11C191FA1E50072F80F /* MDMMasterCollectionViewController.m */,
+				B25DB11F191FACDC0072F80F /* MDMCollectionViewCell.h */,
+				B25DB120191FACDC0072F80F /* MDMCollectionViewCell.m */,
 				4A6CC57B18A7E3430013DDAE /* MDMDetailViewController.h */,
 				4A6CC57C18A7E3430013DDAE /* MDMDetailViewController.m */,
 				4A424DE918A81414003A7C52 /* MDMCoreDataFatalErrorAlertView.h */,
@@ -232,7 +244,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MDM;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Matthew Morey";
 				TargetAttributes = {
 					4A6CC58318A7E3430013DDAE = {
@@ -319,8 +331,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A6CC56D18A7E3430013DDAE /* main.m in Sources */,
+				B25DB121191FACDC0072F80F /* MDMCollectionViewCell.m in Sources */,
 				4A6CC57A18A7E3430013DDAE /* MDMMasterViewController.m in Sources */,
 				4A424DEB18A81414003A7C52 /* MDMCoreDataFatalErrorAlertView.m in Sources */,
+				B25DB11D191FA1E50072F80F /* MDMMasterCollectionViewController.m in Sources */,
 				4A6CC57118A7E3430013DDAE /* MDMAppDelegate.m in Sources */,
 				4A6CC57718A7E3430013DDAE /* MDMCoreData.xcdatamodeld in Sources */,
 				4A6CC57D18A7E3430013DDAE /* MDMDetailViewController.m in Sources */,
@@ -379,7 +393,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -418,7 +431,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -479,7 +491,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 639A4D4D07A149AB8FA0E86B /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MDMCoreData.app/MDMCoreData";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -503,7 +514,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 639A4D4D07A149AB8FA0E86B /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MDMCoreData.app/MDMCoreData";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
