@@ -1,0 +1,28 @@
+PODS:
+  - MDMCoreData (1.0.2):
+    - MDMCoreData/MDMCoreDataCore
+    - MDMCoreData/MDMFetchedResultsCollectionDataSource
+    - MDMCoreData/MDMFetchedResultsTableDataSource
+    - MDMCoreData/MDMPersistenceController
+    - MDMCoreData/NSManagedObject+MDMCoreDataAdditions
+  - MDMCoreData/MDMCoreDataCore (1.0.2)
+  - MDMCoreData/MDMFetchedResultsCollectionDataSource (1.0.2):
+    - MDMCoreData/MDMCoreDataCore
+  - MDMCoreData/MDMFetchedResultsTableDataSource (1.0.2):
+    - MDMCoreData/MDMCoreDataCore
+  - MDMCoreData/MDMPersistenceController (1.0.2):
+    - MDMCoreData/MDMCoreDataCore
+  - MDMCoreData/NSManagedObject+MDMCoreDataAdditions (1.0.2):
+    - MDMCoreData/MDMCoreDataCore
+
+DEPENDENCIES:
+  - MDMCoreData (from `../MDMCoreData.podspec`)
+
+EXTERNAL SOURCES:
+  MDMCoreData:
+    :path: ../MDMCoreData.podspec
+
+SPEC CHECKSUMS:
+  MDMCoreData: 7c95d3c7fd409f4512c9cbadbaf7c4665919d4cc
+
+COCOAPODS: 0.32.1
