@@ -28,7 +28,7 @@
 #import "MDMCoreDataMacros.h"
 #import "MDMPersistenceController.h"
 #import "MDMFetchedResultsTableDataSource.h"
-#import "MDMFetchedResultsCollectionViewDataSource.h"
+//#import "MDMFetchedResultsCollectionViewDataSource.h"
 #import "NSManagedObject+MDMCoreDataAdditions.h"
 
 #endif

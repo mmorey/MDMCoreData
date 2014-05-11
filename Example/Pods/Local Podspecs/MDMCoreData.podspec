@@ -1,15 +1,17 @@
 Pod::Spec.new do |s|
   s.name             = 'MDMCoreData'
-  s.version          = '0.1.0'
+  s.version          = '1.0.1'
   s.summary          = 'A collection of lightweight Core Data classes for iOS and OS X.'
   s.description      = <<-DESC
-                       MDMCoreData is a growing collection of lightweight classes that make working with Core Data easier. It does not try to hide Core Data but instead tries to enforce best practices and reduce boiler plate code. All classes are documented and unit tested.
+                        MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. All classes are documented and unit tested.
 
-                       * __MDMPersistenceController__ - A lightweight class that sets up an efficient Core Data stack with support for creating multiple child managed object contexts. A private managed object context is used for asynchronous saving. A SQLite store is used for data persistence.
+                        * __MDMPersistenceController (iOS, OS X)__ - A handy controller that sets up an efficient Core Data stack with support for creating multiple child managed object contexts. It has a built-in private managed object context that does asynchronous saving for you with a SQLite store.
 
-                       * __MDMFetchedResultsTableDataSource__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source and is used by a table view to access Core Data models.
+                        * __MDMFetchedResultsTableDataSource (iOS)__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source.
+
+                        * __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
                        DESC
-  s.homepage         = 'https://github.com/mmorey/MDMHPCoreData'
+  s.homepage         = 'https://github.com/mmorey/MDMCoreData'
   s.license          = 'MIT'
   s.author           = { 'Matthew Morey' => 'me@matthewmorey.com' }
   s.source           = { :git => 'https://github.com/mmorey/MDMCoreData.git', :tag => s.version.to_s }
@@ -22,11 +24,13 @@ Pod::Spec.new do |s|
 
   s.subspec 'MDMCoreDataCore' do |ss|
     ss.source_files = 'Classes/MDMCoreDataCore/*.{h,m}'
+    ss.requires_arc = true
   end
 
   s.subspec 'MDMPersistenceController' do |ss|
     ss.source_files = 'Classes/MDMPersistenceController/MDMPersistenceController.{h,m}'
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
   s.subspec 'MDMFetchedResultsTableDataSource' do |ss|
@@ -34,11 +38,13 @@ Pod::Spec.new do |s|
     ss.ios.source_files = 'Classes/MDMFetchedResultsTableDataSource/MDMFetchedResultsTableDataSource.{h,m}'
     ss.osx.source_files = ''
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
   s.subspec 'NSManagedObject+MDMCoreDataAdditions' do |ss|
     ss.ios.source_files = 'Classes/NSManagedObject+MDMCoreDataAdditions/NSManagedObject+MDMCoreDataAdditions.{h,m}'
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
 end
