@@ -43,7 +43,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'MDMFetchedResultsCollectionDataSource' do |ss|
     ss.ios.deployment_target = '6.0'
-    ss.ios.source_files = 'Classes/MDMFetchedResultsCollectionDataSource/MDMFetchedResultsCollectionViewDataSource.{h,m}'
+    ss.ios.source_files = 'Classes/MDMFetchedResultsCollectionDataSource/MDMFetchedResultsCollectionDataSource.{h,m}'
     ss.osx.source_files = ''
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
     ss.requires_arc = true
