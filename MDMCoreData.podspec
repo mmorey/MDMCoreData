@@ -13,7 +13,8 @@ Pod::Spec.new do |s|
                        DESC
   s.homepage         = 'https://github.com/mmorey/MDMCoreData'
   s.license          = 'MIT'
-  s.author           = { 'Matthew Morey' => 'me@matthewmorey.com' }
+  s.author           = { 'Matthew Morey'  => 'me@matthewmorey.com',
+                         'Terry Lewis II' => 'terry@ploverproductions.com' }
   s.source           = { :git => 'https://github.com/mmorey/MDMCoreData.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/xzolian'
   s.requires_arc = true
