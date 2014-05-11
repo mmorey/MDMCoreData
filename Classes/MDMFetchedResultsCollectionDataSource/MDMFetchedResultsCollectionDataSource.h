@@ -6,33 +6,33 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MDMFetchedResultsCollectionViewDataSource;
+@class MDMFetchedResultsCollectionDataSource;
 
 /**
- A delegate of a `MDMFetchedResultsCollectionViewDataSource` object must adopt the
- `MDMFetchedResultsCollectionViewDataSource` protocol.
+ A delegate of a `MDMFetchedResultsCollectionDataSource` object must adopt the
+ `MDMFetchedResultsCollectionDataSource` protocol.
  */
-@protocol MDMFetchedResultsCollectionViewDataSourceDelegate <NSObject>
+@protocol MDMFetchedResultsCollectionDataSourceDelegate <NSObject>
 
 @required
 /**
  Tells the delegate to configure the collection cell with the given object.
 
- @param cell The UICollectionViewCell to be configured by the delegate.
+ @param cell The UICollectionCell to be configured by the delegate.
  @param object The object to be used to configure the cell.
  */
-- (void)dataSource:(MDMFetchedResultsCollectionViewDataSource *)dataSource configureCell:(id)cell withObject:(id)object;
+- (void)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource configureCell:(id)cell withObject:(id)object;
 
 /**
  Asks the delegate to delete the specified object.
 
  @param object The object to be deleted by the delegate.
  */
-- (void)dataSource:(MDMFetchedResultsCollectionViewDataSource *)dataSource deleteObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+- (void)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource deleteObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
-@interface MDMFetchedResultsCollectionViewDataSource : NSObject <UICollectionViewDataSource, NSFetchedResultsControllerDelegate>
+@interface MDMFetchedResultsCollectionDataSource : NSObject <UICollectionViewDataSource, NSFetchedResultsControllerDelegate>
 
 /**
  The `NSFetchedResultsController` to be used by the data source.
@@ -52,7 +52,7 @@
 /**
  The object that acts as the delegate of the receiving data source.
  */
-@property(nonatomic, weak) id <MDMFetchedResultsCollectionViewDataSourceDelegate> delegate;
+@property(nonatomic, weak) id <MDMFetchedResultsCollectionDataSourceDelegate> delegate;
 
 /**
  Returns a fetched results collectionView data source initialized with the given arguments.

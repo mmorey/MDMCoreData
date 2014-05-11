@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MDMCoreData'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'A collection of lightweight Core Data classes for iOS and OS X.'
   s.description      = <<-DESC
                         MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. All classes are documented and unit tested.
@@ -36,6 +36,14 @@ Pod::Spec.new do |s|
   s.subspec 'MDMFetchedResultsTableDataSource' do |ss|
     ss.ios.deployment_target = '6.0'
     ss.ios.source_files = 'Classes/MDMFetchedResultsTableDataSource/MDMFetchedResultsTableDataSource.{h,m}'
+    ss.osx.source_files = ''
+    ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
+  end
+
+  s.subspec 'MDMFetchedResultsCollectionDataSource' do |ss|
+    ss.ios.deployment_target = '6.0'
+    ss.ios.source_files = 'Classes/MDMFetchedResultsCollectionDataSource/MDMFetchedResultsCollectionViewDataSource.{h,m}'
     ss.osx.source_files = ''
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
     ss.requires_arc = true

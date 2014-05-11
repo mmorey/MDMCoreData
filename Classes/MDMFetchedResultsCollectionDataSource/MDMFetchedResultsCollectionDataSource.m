@@ -4,16 +4,16 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "MDMFetchedResultsCollectionViewDataSource.h"
+#import "MDMFetchedResultsCollectionDataSource.h"
 #import "MDMCoreDataMacros.h"
 
-@interface MDMFetchedResultsCollectionViewDataSource ()
+@interface MDMFetchedResultsCollectionDataSource ()
 @property(nonatomic, weak) UICollectionView *collectionView;
 @property(nonatomic, strong) NSMutableArray *objectChanges;
 @property(nonatomic, strong) NSMutableArray *sectionChanges;
 @end
 
-@implementation MDMFetchedResultsCollectionViewDataSource
+@implementation MDMFetchedResultsCollectionDataSource
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView
     fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController {
