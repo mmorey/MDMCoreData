@@ -45,12 +45,7 @@
     
     [super viewDidLoad];
     
-    UIBarButtonItem *pauseButton = [[UIBarButtonItem alloc] initWithTitle:@"Pause" style:UIBarButtonItemStylePlain target:self action:@selector(pauseUpdates:)];
-    self.navigationItem.leftBarButtonItem = pauseButton;
-    
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-
+    [self setupBarButtonItems];
     [self setupDateFormatters];
     [self setupCollectionDataSource];
 }
@@ -63,6 +58,17 @@
     [self.collectionViewLayout invalidateLayout];
     
     [self updatePauseBarButton:self.navigationItem.leftBarButtonItem];
+}
+
+#pragma mark - Setup
+
+- (void)setupBarButtonItems {
+    
+    UIBarButtonItem *pauseButton = [[UIBarButtonItem alloc] initWithTitle:@"Pause" style:UIBarButtonItemStylePlain target:self action:@selector(pauseUpdates:)];
+    self.navigationItem.leftBarButtonItem = pauseButton;
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    self.navigationItem.rightBarButtonItem = addButton;
 }
 
 - (void)setupDateFormatters {
