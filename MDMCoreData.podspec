@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MDMCoreData'
-  s.version          = '1.0.0'
+  s.version          = '1.0.2'
   s.summary          = 'A collection of lightweight Core Data classes for iOS and OS X.'
   s.description      = <<-DESC
                         MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. All classes are documented and unit tested.
@@ -13,7 +13,8 @@ Pod::Spec.new do |s|
                        DESC
   s.homepage         = 'https://github.com/mmorey/MDMCoreData'
   s.license          = 'MIT'
-  s.author           = { 'Matthew Morey' => 'me@matthewmorey.com' }
+  s.author           = { 'Matthew Morey'  => 'me@matthewmorey.com',
+                         'Terry Lewis II' => 'terry@ploverproductions.com' }
   s.source           = { :git => 'https://github.com/mmorey/MDMCoreData.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/xzolian'
   s.requires_arc = true
@@ -24,11 +25,13 @@ Pod::Spec.new do |s|
 
   s.subspec 'MDMCoreDataCore' do |ss|
     ss.source_files = 'Classes/MDMCoreDataCore/*.{h,m}'
+    ss.requires_arc = true
   end
 
   s.subspec 'MDMPersistenceController' do |ss|
     ss.source_files = 'Classes/MDMPersistenceController/MDMPersistenceController.{h,m}'
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
   s.subspec 'MDMFetchedResultsTableDataSource' do |ss|
@@ -36,11 +39,21 @@ Pod::Spec.new do |s|
     ss.ios.source_files = 'Classes/MDMFetchedResultsTableDataSource/MDMFetchedResultsTableDataSource.{h,m}'
     ss.osx.source_files = ''
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
+  end
+
+  s.subspec 'MDMFetchedResultsCollectionDataSource' do |ss|
+    ss.ios.deployment_target = '6.0'
+    ss.ios.source_files = 'Classes/MDMFetchedResultsCollectionDataSource/MDMFetchedResultsCollectionDataSource.{h,m}'
+    ss.osx.source_files = ''
+    ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
   s.subspec 'NSManagedObject+MDMCoreDataAdditions' do |ss|
     ss.ios.source_files = 'Classes/NSManagedObject+MDMCoreDataAdditions/NSManagedObject+MDMCoreDataAdditions.{h,m}'
     ss.dependency 'MDMCoreData/MDMCoreDataCore'
+    ss.requires_arc = true
   end
 
 end

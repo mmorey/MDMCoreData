@@ -22,7 +22,7 @@
 //  THE SOFTWARE.
 
 #import "MDMAppDelegate.h"
-#import "MDMMasterViewController.h"
+#import "MDMPersistenceControllerViewControllerProtocol.h"
 #import <MDMCoreData.h>
 #import "MDMCoreDataFatalErrorAlertView.h"
 
@@ -37,9 +37,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    MDMMasterViewController *controller = (MDMMasterViewController *)navigationController.topViewController;
-    controller.persistenceController = self.persistenceController;
+    // Inject Persistence Controller into top ViewControllers.
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    
+    [tabBarController.viewControllers enumerateObjectsUsingBlock:^(UINavigationController *navigationController, NSUInteger idx, BOOL *stop) {
+        
+        if ([navigationController.topViewController conformsToProtocol:@protocol(MDMPersistenceControllerViewControllerProtocol)]) {
+            id<MDMPersistenceControllerViewControllerProtocol> viewController = (id<MDMPersistenceControllerViewControllerProtocol>)navigationController.topViewController;
+            [viewController setPersistenceController:self.persistenceController];
+        }
+    }];
+    
     return YES;
 }
 							
