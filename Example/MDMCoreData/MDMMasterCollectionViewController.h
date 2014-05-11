@@ -1,5 +1,5 @@
 //
-//  MDMMasterViewController.h
+//  MDMMasterCollectionViewController.h
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
@@ -26,7 +26,7 @@
 
 @class MDMPersistenceController;
 
-@interface MDMMasterViewController : UITableViewController <MDMPersistenceControllerViewControllerProtocol>
+@interface MDMMasterCollectionViewController : UICollectionViewController <MDMPersistenceControllerViewControllerProtocol>
 
 @property (nonatomic, strong) MDMPersistenceController *persistenceController;
 
