@@ -156,7 +156,7 @@
         case NSFetchedResultsChangeMove:
             break;
         case NSFetchedResultsChangeUpdate:
-            NSLog(@"update");
+            DLog(@"update");
             break;
     }
 
