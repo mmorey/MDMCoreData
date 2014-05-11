@@ -11,17 +11,16 @@ MDMCoreData is a growing collection of classes that make working with Core Data 
 
 * __MDMFetchedResultsTableDataSource (iOS)__ -  A class mostly full of boiler plate that implements the fetched results controller delegate and a table data source.
 
-* __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
+* __MDMFetchedResultsCollectionDataSource (iOS)__ - A class mostly full of boiler plate that implements the fetched results controller delegate and a collection data source.
 
-* __MDMFetchedResultsCollectionDataSource (iOS)__ -  Coming soon.
+* __NSManagedObject+MDMCoreDataAdditions (iOS, OS X)__ - A category on managed objects that provides helper methods for eliminating boiler plate code.
 
 |   | iOS | OS X | Documented | Tested  |
 |--:|:-:|:-:|:-:|:-:|
 | __MDMPersistenceController__                    | ✓ | ✓ | ✓ | ✓ |
 | __MDMFetchedResultsTableDataSource__            | ✓ |   | ✓ |   |
+| __MDMFetchedResultsCollectionDataSource__       | ✓ |   | ✓ |   |
 | __NSManagedObject+MDMCoreDataAdditions__        | ✓ | ✓ | ✓ |   |
-| __MDMFetchedResultsCollectionDataSource (iOS)__ |   |   |   |   |
-
 
 ## Table of Contents
 
