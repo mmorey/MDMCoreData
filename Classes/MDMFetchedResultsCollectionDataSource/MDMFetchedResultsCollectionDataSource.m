@@ -144,6 +144,8 @@
     return cell;
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
+
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
 

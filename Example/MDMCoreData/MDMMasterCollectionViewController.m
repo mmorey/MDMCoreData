@@ -52,6 +52,14 @@
     [self setupCollectionDataSource];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
+    [self.collectionViewLayout invalidateLayout];
+}
+
 - (void)setupDateFormatters {
     
     self.titleDateFormatter = [[NSDateFormatter alloc] init];
