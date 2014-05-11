@@ -45,6 +45,9 @@
     
     [super viewDidLoad];
     
+    UIBarButtonItem *pauseButton = [[UIBarButtonItem alloc] initWithTitle:@"Pause" style:UIBarButtonItemStylePlain target:self action:@selector(pauseUpdates:)];
+    self.navigationItem.leftBarButtonItem = pauseButton;
+    
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
 
@@ -58,6 +61,8 @@
     
     [self.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
     [self.collectionViewLayout invalidateLayout];
+    
+    [self updatePauseBarButton:self.navigationItem.leftBarButtonItem];
 }
 
 - (void)setupDateFormatters {
@@ -108,6 +113,20 @@
     Event *newEvent = [Event MDMCoreDataAdditionsInsertNewObjectIntoContext:[self.fetchedResultsController managedObjectContext]];
     newEvent.timeStamp = [NSDate date];
     [self save];
+}
+
+#pragma mark - Pause
+- (void)pauseUpdates:(UIBarButtonItem *)sender {
+    
+    self.collectionDataSource.paused = !self.collectionDataSource.paused;
+    [self updatePauseBarButton:sender];
+}
+
+- (void)updatePauseBarButton:(UIBarButtonItem *)pauseButton {
+    NSDictionary *titleTextAttributes = (self.collectionDataSource.paused) ? @{ NSFontAttributeName : [UIFont boldSystemFontOfSize:14.0f],
+                                                                                NSForegroundColorAttributeName : [UIColor redColor] } : nil;
+    [pauseButton setTitleTextAttributes:titleTextAttributes forState:UIControlStateNormal];
+    pauseButton.title = (self.collectionDataSource.paused) ? @"Resume" : @"Pause";
 }
 
 #pragma mark - Fetched results controller
