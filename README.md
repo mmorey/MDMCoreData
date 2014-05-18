@@ -163,7 +163,7 @@ Pull request are welcomed. To add functionality or to make changes:
 
 ## Author
 
-Created by [Matthew Morey](http://matthewmorey.com), [Terry Lewis II](http://ifnotapps.com/) and other [contributors](https://github.com/mmorey/MDMCoreData/graphs/contributors).
+Created by [Matthew Morey](http://matthewmorey.com), [Terry Lewis II](http://ifnotapps.com/), [Matt Glover](http://twitter.com/mattglover) and other [contributors](https://github.com/mmorey/MDMCoreData/graphs/contributors).
 
 ## License
 
