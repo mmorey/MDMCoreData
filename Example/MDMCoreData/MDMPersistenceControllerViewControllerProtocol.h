@@ -1,5 +1,5 @@
 //
-//  MDMMasterCollectionViewController.h
+//  MDMPersistenceControllerViewControllerProtocol.h
 //
 //  Copyright (c) 2014 Matthew Morey.
 //

@@ -1,5 +1,5 @@
 //
-//  MDMMasterCollectionViewController.h
+//  MDMCollectionViewCell.h
 //
 //  Copyright (c) 2014 Matthew Morey.
 //
