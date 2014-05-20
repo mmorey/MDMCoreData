@@ -232,7 +232,7 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
     return childManagedObjectContext;
 }
 
-#pragma mark - NSNotificaitonCenter
+#pragma mark - NSNotificationCenter
 
 - (void)persistenceStackInitialized {
     
