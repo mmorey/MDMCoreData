@@ -122,4 +122,5 @@
  @return The index path of `object` in the receiver's fetch results, or nil if `object` could not be found.
  */
 - (NSIndexPath *)indexPathForObject:(id)object;
+
 @end
