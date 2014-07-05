@@ -151,6 +151,9 @@ To install manually, just copy everything in the `Classes` directory into your X
 
 _**Important:**_ If your project doesn't use ARC you must add the `-fobjc-arc` compiler flag to all MDMCoreData implementation files in Target Settings > Build Phases > Compile Sources.
 
+## Example Usage 
+![Example Usage - Screencast](https://raw.githubusercontent.com/mattglover/MDMCoreData/master/Resources/MDMCoreData.gif "Example Usage - Screencast - Example project in action")
+
 ## Contributing
 
 Pull request are welcomed. To add functionality or to make changes:
