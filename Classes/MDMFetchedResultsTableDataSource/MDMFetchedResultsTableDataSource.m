@@ -30,7 +30,10 @@
 
 @end
 
-@implementation MDMFetchedResultsTableDataSource
+@implementation MDMFetchedResultsTableDataSource {
+    NSMutableIndexSet *_sectionsBeingAdded;
+    NSMutableIndexSet *_sectionsBeingRemoved;
+}
 
 #pragma mark - Lifecycle
 
@@ -171,6 +174,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     
+    _sectionsBeingAdded = [NSMutableIndexSet indexSet];
+    _sectionsBeingRemoved = [NSMutableIndexSet indexSet];
     [self.tableView beginUpdates];
 }
 
@@ -181,12 +186,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
    
     switch (type) {
         case NSFetchedResultsChangeInsert:
+            [_sectionsBeingAdded addIndex:sectionIndex];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             
             break;
 
         case NSFetchedResultsChangeDelete:
+            [_sectionsBeingRemoved addIndex:sectionIndex];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             
@@ -227,17 +234,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             break;
 
         case NSFetchedResultsChangeMove:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-           
+            if ([self shouldMakeMoveForMovedObjectFromIndexPath:indexPath toIndexPath:newIndexPath]) {
+                [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+            } else {
+                // This is to prevent a bug in UITableView from occurring.
+                // The bug presents itself when moving a row from a newly deleted section or to a newly inserted section
+                // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
+                // http://openradar.appspot.com/17684030
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
+                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            
             break;
         default:
             ALog(@"Missing NSFechedResultsChange case");
 
             break;
     }
+}
+
+- (BOOL)shouldMakeMoveForMovedObjectFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    return !([_sectionsBeingRemoved containsIndex:fromIndexPath.section] || [_sectionsBeingAdded containsIndex:toIndexPath.section]);
 }
 
 @end
