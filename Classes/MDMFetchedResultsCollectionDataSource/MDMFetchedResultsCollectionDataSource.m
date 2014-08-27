@@ -141,6 +141,7 @@
     NSString *reuseIdentifier = self.reuseIdentifier;
     
     if (reuseIdentifier == nil) {
+        ZAssert([self.delegate respondsToSelector:@selector(dataSource:reuseIdentifierForObject:atIndexPath:)], @"You need to set the `reuseIdentifier` property or implement the optional dataSource:reuseIdentifierForObject:atIndexPath: delegate method.");
         reuseIdentifier = [self.delegate dataSource:self reuseIdentifierForObject:object atIndexPath:indexPath];
     }
     
