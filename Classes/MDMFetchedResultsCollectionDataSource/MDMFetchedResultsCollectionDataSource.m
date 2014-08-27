@@ -145,12 +145,69 @@
         reuseIdentifier = [self.delegate dataSource:self reuseIdentifierForObject:object atIndexPath:indexPath];
     }
     
-    ZAssert(reuseIdentifier, @"You need to set the `reuseIdentifier` property or return a string value from the dataSource:reuseIdentifierForObject:atIndexPath: delegate method.");
+    ZAssert(reuseIdentifier, @"You need to set the `reuseIdentifier` property or return a string value from the `dataSource:reuseIdentifierForObject:atIndexPath:` delegate method.");
     
     id cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [self.delegate dataSource:self configureCell:cell withObject:object];
 
     return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *reuseIdentifier = [self reuseIdentifierForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+    id view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    if ([self.delegate respondsToSelector:@selector(dataSource:configureSupplementaryView:ofKind:atIndexPath:)]) {
+        [self.delegate dataSource:self configureSupplementaryView:view ofKind:kind atIndexPath:indexPath];
+    }
+    
+    return view;
+}
+
+- (NSString *)reuseIdentifierForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *reuseIdentifier = nil;
+    
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        
+        reuseIdentifier = [self headerReuseIdentifierAtIndexPath:indexPath];
+    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+        
+        reuseIdentifier = [self footerReuseIdentifierAtIndexPath:indexPath];
+    }
+    
+    return reuseIdentifier;
+}
+
+- (NSString *)headerReuseIdentifierAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *reuseIdentifier = self.headerReuseIdentifier;
+    
+    if (reuseIdentifier == nil) {
+        
+        ZAssert([self.delegate respondsToSelector:@selector(dataSource:reuseIdentifierForSupplementaryViewOfKind:atIndexPath:)], @"You need to set the `headerReuseIdentifier` property or implmenet the `dataSource:reuseIdentifierOfKind:atIndexPath:` delegate method.");
+        reuseIdentifier = [self.delegate dataSource:self reuseIdentifierForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
+    }
+    
+    ZAssert(reuseIdentifier, @"You need to set the `headerReuseIdentifier` property or return a string value from the `dataSource:reuseIdentifierOfKind:atIndexPath:` delegate method.");
+    
+    return reuseIdentifier;
+}
+
+- (NSString *)footerReuseIdentifierAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *reuseIdentifier = self.footerReuseIdentifier;
+    
+    if (reuseIdentifier == nil) {
+        
+        ZAssert([self.delegate respondsToSelector:@selector(dataSource:reuseIdentifierForSupplementaryViewOfKind:atIndexPath:)], @"You need to set the `footerReuseIdentifier` property or implmenet the `dataSource:reuseIdentifierOfKind:atIndexPath:` delegate method.");
+        reuseIdentifier = [self.delegate dataSource:self reuseIdentifierForSupplementaryViewOfKind:UICollectionElementKindSectionFooter atIndexPath:indexPath];
+    }
+    
+    ZAssert(reuseIdentifier, @"You need to set the `footerReuseIdentifier` property or return a string value from the `dataSource:reuseIdentifierOfKind:atIndexPath:` delegate method.");
+    
+    return reuseIdentifier;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
