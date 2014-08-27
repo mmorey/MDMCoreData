@@ -145,6 +145,8 @@
         reuseIdentifier = [self.delegate dataSource:self reuseIdentifierForObject:object atIndexPath:indexPath];
     }
     
+    ZAssert(reuseIdentifier, @"You need to set the `reuseIdentifier` property or return a string value from the dataSource:reuseIdentifierForObject:atIndexPath: delegate method.");
+    
     id cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [self.delegate dataSource:self configureCell:cell withObject:object];
 
