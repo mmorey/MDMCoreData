@@ -45,8 +45,18 @@
  Asks the delegate to delete the specified object.
 
  @param object The object to be deleted by the delegate.
+ @param indexPath The indexPath of the cell representing the object.
  */
 - (void)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource deleteObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+
+@optional
+/**
+ Asks the delegate for a reuse identifier to be used to dequeue a cell. This method will only get called if the `reuseIdenfier` property is nil. Use this method when you want to make use of different kinds of cells.
+ 
+ @param object The object that will be eventually used to configure the dequeued cell.
+ @param indexPath The indexPath for the cell to be dequeued.
+ */
+- (NSString *)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource reuseIdentifierForObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -58,7 +68,7 @@
 @property(nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 /**
- The reuse identifier of the cell being modified by the data source.
+ The reuse identifier of the cell being modified by the data source. If you prefer to use multiple identifiers, do not set this property and implement the `dataSource:reuseIdentifierForObject:atIndexPath:` delegate method instead.
  */
 @property(nonatomic, copy) NSString *reuseIdentifier;
 

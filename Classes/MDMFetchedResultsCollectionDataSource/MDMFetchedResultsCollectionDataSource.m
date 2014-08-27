@@ -137,8 +137,14 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    id cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.reuseIdentifier forIndexPath:indexPath];
     id object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *reuseIdentifier = self.reuseIdentifier;
+    
+    if (reuseIdentifier == nil) {
+        reuseIdentifier = [self.delegate dataSource:self reuseIdentifierForObject:object atIndexPath:indexPath];
+    }
+    
+    id cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [self.delegate dataSource:self configureCell:cell withObject:object];
 
     return cell;
