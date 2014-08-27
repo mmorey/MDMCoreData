@@ -36,7 +36,7 @@
 /**
  Tells the delegate to configure the collection cell with the given object.
 
- @param cell The UICollectionCell to be configured by the delegate.
+ @param cell The UICollectionViewCell to be configured by the delegate.
  @param object The object to be used to configure the cell.
  */
 - (void)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource configureCell:(id)cell withObject:(id)object;
@@ -54,9 +54,26 @@
  Asks the delegate for a reuse identifier to be used to dequeue a cell. This method will only get called if the `reuseIdentifier` property is nil. Use this method when you want to make use of different kinds of cells.
  
  @param object The object that will be eventually used to configure the dequeued cell.
- @param indexPath The indexPath for the cell to be dequeued.
+ @param indexPath The index path for the cell to be dequeued.
  */
 - (NSString *)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource reuseIdentifierForObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ Asks the delegate for a reuse identifier to be used to dequeue a supplementary view. This method will only get called if the `headerReuseIdentifier` and/or `footerReuseIdentifier` properties are nil. Use this method when you want to make use of different kinds of supplementary views for a given kind.
+ 
+ @param kind The kind of UICollectionReusableView (UICollectionElementKindSectionHeader or UICollectionElementKindSectionFooter).
+ @param indexPath The index path for the supplementary view to be dequeued.
+ */
+- (NSString *)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource reuseIdentifierForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ Tells the delegate to configure the supplementary view.
+ 
+ @param view The UICollectionReusableView to be configured by the delegate.
+ @param kind The kind of UICollectionReusableView (UICollectionElementKindSectionHeader or UICollectionElementKindSectionFooter).
+ @param indexPath The index path for the supplementary view to be dequeued.
+ */
+- (void)dataSource:(MDMFetchedResultsCollectionDataSource *)dataSource configureSupplementaryView:(id)view ofKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -71,6 +88,16 @@
  The reuse identifier of the cell being modified by the data source. If you prefer to use multiple identifiers, do not set this property and implement the `dataSource:reuseIdentifierForObject:atIndexPath:` delegate method instead.
  */
 @property(nonatomic, copy) NSString *reuseIdentifier;
+
+/**
+ The reuse identifier of the header being modified by the data source. If you prefer to use multiple identifiers, do not set this property and implement the `dataSource:reuseIdentifierForSupplementaryViewOfKind:atIndexPath:` delegate method instead.
+ */
+@property(nonatomic, copy) NSString *headerReuseIdentifier;
+
+/**
+ The reuse identifier of the footer being modified by the data source. If you prefer to use multiple identifiers, do not set this property and implement the `dataSource:reuseIdentifierForSupplementaryViewOfKind:atIndexPath:` delegate method instead.
+ */
+@property(nonatomic, copy) NSString *footerReuseIdentifier;
 
 /**
  A Boolean value that determines whether the receiver will update automatically when the model changes.
