@@ -77,7 +77,7 @@ NSManagedObjectContext *privateContextForDoingBackgroundWork = [self.persistence
 ```
 For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
-### MDMFetchedResultsDataSource
+### MDMFetchedResults[Table|Collection]DataSource
 
 To create a new `MDMFetchedResultsTableDataSource` or `MDMFetchedResultsCollectionViewDataSource` call `initWithTableView:fetchedResultsController:` or `initWithCollectionView:fetchedResultsController:`with a table view or collection view and fetched results controller. You also need to set the `delegate` and `reuseIdentifier`.
 
