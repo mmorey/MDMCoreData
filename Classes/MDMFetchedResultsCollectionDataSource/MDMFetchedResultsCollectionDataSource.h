@@ -51,7 +51,7 @@
 
 @optional
 /**
- Asks the delegate for a reuse identifier to be used to dequeue a cell. This method will only get called if the `reuseIdenfier` property is nil. Use this method when you want to make use of different kinds of cells.
+ Asks the delegate for a reuse identifier to be used to dequeue a cell. This method will only get called if the `reuseIdentifier` property is nil. Use this method when you want to make use of different kinds of cells.
  
  @param object The object that will be eventually used to configure the dequeued cell.
  @param indexPath The indexPath for the cell to be dequeued.
