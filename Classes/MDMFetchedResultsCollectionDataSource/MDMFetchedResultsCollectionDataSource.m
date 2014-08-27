@@ -137,8 +137,17 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    id cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.reuseIdentifier forIndexPath:indexPath];
     id object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *reuseIdentifier = self.reuseIdentifier;
+    
+    if (reuseIdentifier == nil) {
+        ZAssert([self.delegate respondsToSelector:@selector(dataSource:reuseIdentifierForObject:atIndexPath:)], @"You need to set the `reuseIdentifier` property or implement the optional dataSource:reuseIdentifierForObject:atIndexPath: delegate method.");
+        reuseIdentifier = [self.delegate dataSource:self reuseIdentifierForObject:object atIndexPath:indexPath];
+    }
+    
+    ZAssert(reuseIdentifier, @"You need to set the `reuseIdentifier` property or return a string value from the dataSource:reuseIdentifierForObject:atIndexPath: delegate method.");
+    
+    id cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [self.delegate dataSource:self configureCell:cell withObject:object];
 
     return cell;
