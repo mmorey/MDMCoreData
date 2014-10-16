@@ -48,6 +48,15 @@
  */
 - (void)dataSource:(MDMFetchedResultsTableDataSource *)dataSource deleteObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
 
+@optional
+/**
+ Asks the delegate for a reuse identifier to be used to dequeue a cell. This method will only get called if the `reuseIdentifier` property is nil. Use this method when you want to make use of different kinds of cells.
+
+ @param object The object that will be eventually used to configure the dequeued cell.
+ @param indexPath The index path for the cell to be dequeued.
+ */
+- (NSString *)dataSource:(MDMFetchedResultsTableDataSource *)dataSource reuseIdentifierForObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 /**
