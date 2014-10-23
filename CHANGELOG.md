@@ -16,3 +16,6 @@
 ## 1.2.0
 * Add supplement view support to MDMFetchedResultsCollectionDataSource
 * Added delegate call back support for multiple reuse identifiers for MDMFetchedResultsCollectionDataSource
+
+## 1.3.0
+* Added delegate call back support for multiple reuse identifiers for MDMFetchedResultsTableDataSource
