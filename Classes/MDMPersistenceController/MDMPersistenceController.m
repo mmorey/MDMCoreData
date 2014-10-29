@@ -59,6 +59,12 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
     return [self initWithStoreURL:storeURL model:model];
 }
 
+- (instancetype)init {
+    ALog(@"ERROR: Ensure MDMPersistenceController is instantiated using the designated initializer(s)");
+    
+    return nil;
+}
+
 - (BOOL)setupPersistenceStack {
     
     // Create persistent store coordinator
@@ -162,10 +168,6 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 }
 
 - (void)saveContextAndWait:(BOOL)wait completion:(void (^)(NSError *error))completion {
-    
-    if (self.managedObjectContext == nil) {
-        return;
-    }
     
     if ([self.managedObjectContext hasChanges] || [self.writerObjectContext hasChanges]) {
         
