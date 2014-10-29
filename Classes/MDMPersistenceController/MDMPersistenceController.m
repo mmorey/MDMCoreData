@@ -190,7 +190,10 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
                 }
             }
         }]; // Managed Object Context block
-    } // Managed Object Context has changes
+    } else {
+        // No changes to either managedObjectContext or writerObjectContext
+        completion(nil);
+    }
 }
 
 - (void(^)())savePrivateWriterContextBlockWithCompletion:(void (^)(NSError *))completion {
