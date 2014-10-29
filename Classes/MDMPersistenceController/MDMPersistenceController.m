@@ -163,10 +163,6 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 
 - (void)saveContextAndWait:(BOOL)wait completion:(void (^)(NSError *error))completion {
     
-    if (self.managedObjectContext == nil) {
-        return;
-    }
-    
     if ([self.managedObjectContext hasChanges] || [self.writerObjectContext hasChanges]) {
         
         [self.managedObjectContext performBlockAndWait:^{
