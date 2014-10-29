@@ -59,6 +59,11 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
     return [self initWithStoreURL:storeURL model:model];
 }
 
+- (instancetype)init {
+    ZAssert(nil, @"ERROR: Ensure MDMPersistenceController is instantiated using the designated initializer(s)");
+    return nil;
+}
+
 - (BOOL)setupPersistenceStack {
     
     // Create persistent store coordinator
