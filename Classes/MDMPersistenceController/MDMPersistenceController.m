@@ -60,6 +60,7 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 }
 
 - (instancetype)init {
+    
     ALog(@"ERROR: Ensure MDMPersistenceController is instantiated using the designated initializer(s)");
     
     return nil;
