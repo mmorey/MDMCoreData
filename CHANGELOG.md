@@ -19,3 +19,8 @@
 
 ## 1.3.0
 * Added delegate call back support for multiple reuse identifiers for MDMFetchedResultsTableDataSource
+
+## 1.3.1
+* Calling completion(nil) in the event of no changes to MOC or WOC
+* Removed check for self.managedObjectContext
+* Created assertion if init is called on MDMPersistanceController
