@@ -4,6 +4,9 @@ A collection of lightweight Core Data classes for iOS and OS X as seen on [NSScr
 
 [![Version](https://cocoapod-badges.herokuapp.com/v/MDMCoreData/badge.png)](http://cocoadocs.org/docsets/MDMCoreData)
 [![Platform](https://cocoapod-badges.herokuapp.com/p/MDMCoreData/badge.png)](http://cocoadocs.org/docsets/MDMCoreData)
+[![License](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/mmorey/MDMCoreData/blob/master/LICENSE)
+[![Twitter: @xzolian](https://img.shields.io/badge/contact-@xzolian-blue.svg?style=flat)](https://twitter.com/xzolian)
+
 
 MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. It is a much better alternative to using the Xcode Core Data Template. All classes are documented and a majority are unit tested.
 
