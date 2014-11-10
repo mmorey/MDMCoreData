@@ -24,3 +24,7 @@
 * Calling completion(nil) in the event of no changes to MOC or WOC
 * Removed check for self.managedObjectContext
 * Created assertion if init is called on MDMPersistanceController
+
+## 1.3.2
+* Minor README updates
+* Check for block existence before calling it
