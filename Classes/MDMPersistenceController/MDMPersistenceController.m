@@ -191,6 +191,12 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
                 } else {
                     [self.writerObjectContext performBlock:[self savePrivateWriterContextBlockWithCompletion:completion]];
                 }
+                
+                return;
+            }
+            
+            if (completion) {
+                completion(nil);
             }
         }]; // Managed Object Context block
     } else {
