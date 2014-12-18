@@ -28,3 +28,6 @@
 ## 1.3.2
 * Minor README updates
 * Check for block existence before calling it
+
+## 1.3.3
+* Call completion block if writerObjectContext doesn't have changes to save (thanks Craig Marvelley).
