@@ -33,6 +33,8 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 @property (nonatomic, strong) NSURL *storeURL;
 @property (nonatomic, strong) NSManagedObjectModel *model;
 
+- (BOOL)managedObjectContextHasChanges:(NSManagedObjectContext *)context;
+
 @end
 
 @implementation MDMPersistenceController
@@ -170,7 +172,7 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 
 - (void)saveContextAndWait:(BOOL)wait completion:(void (^)(NSError *error))completion {
     
-    if ([self.managedObjectContext hasChanges] || [self.writerObjectContext hasChanges]) {
+    if ([self managedObjectContextHasChanges:self.managedObjectContext] || [self managedObjectContextHasChanges:self.writerObjectContext]) {
         
         [self.managedObjectContext performBlockAndWait:^{
             
@@ -184,7 +186,7 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
                 return;
             }
             
-            if ([self.writerObjectContext hasChanges]) {
+            if ([self managedObjectContextHasChanges:self.writerObjectContext]) {
                
                 if (wait) {
                     [self.writerObjectContext performBlockAndWait:[self savePrivateWriterContextBlockWithCompletion:completion]];
@@ -205,6 +207,18 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
             completion(nil);
         }
     }
+}
+
+- (BOOL)managedObjectContextHasChanges:(NSManagedObjectContext *)context {
+    
+    __block BOOL hasChanges;
+    
+    [context performBlockAndWait:^{
+        hasChanges = [context hasChanges];
+    }];
+    
+    return hasChanges;
+    
 }
 
 - (void(^)())savePrivateWriterContextBlockWithCompletion:(void (^)(NSError *))completion {
