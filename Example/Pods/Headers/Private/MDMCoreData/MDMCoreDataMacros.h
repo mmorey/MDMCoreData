@@ -1,0 +1,1 @@
+../../../../../Classes/MDMCoreDataCore/MDMCoreDataMacros.h

@@ -1,2 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
-pod "MDMCoreData", :path => "../MDMCoreData.podspec"
+
+target 'MDMCoreData', :exclusive => true do
+  pod "MDMCoreData", :path => "../"
+end
+
+target 'MDMCoreDataTests', :exclusive => true do
+    pod "MDMCoreData", :path => "../"
+end
