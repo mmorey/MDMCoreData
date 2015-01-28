@@ -33,8 +33,6 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 @property (nonatomic, strong) NSURL *storeURL;
 @property (nonatomic, strong) NSManagedObjectModel *model;
 
-- (BOOL)managedObjectContextHasChanges:(NSManagedObjectContext *)context;
-
 @end
 
 @implementation MDMPersistenceController
