@@ -1,5 +1,8 @@
 # MDMCoreData CHANGELOG
 
+## 1.3.5
+* Import UIKit now that new Xcode projects don't come with precompiled headers (Dan Berry)
+
 ## 1.3.4
 * Concurrency fixes (thanks Craig Marvelley)
 * Example project Cocoapods fixes
