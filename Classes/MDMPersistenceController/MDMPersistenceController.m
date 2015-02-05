@@ -68,7 +68,6 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
 
 - (NSPersistentStoreCoordinator *)setupNewPersistentStoreCoordinator {
 
-    // TODO: PRB: Can the MOM object be shared between Persistent Store Coordinator's or should we clone new one?
     if (self.model == nil) {
         // App is useless without a data model
         ALog(@"ERROR: Cannot create a new persistent store coordinator as model is nil");
