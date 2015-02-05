@@ -220,7 +220,7 @@ NSString * const kTestEntityName = @"Test";
     }
     if(maxFetchTime>=0) {
         NSTimeInterval fetchTime = -[fetchStartTime timeIntervalSinceNow];
-        NSLog(@"Foreground fetch took %f", fetchTime);
+        NSLog(@"Fetch took %f", fetchTime);
         //if time taken more than max expected then fail!
         XCTAssert( (fetchTime < maxFetchTime), @"Expected not to take more than %f seconds for fetch", maxFetchTime);
     }
@@ -234,13 +234,13 @@ NSString * const kTestEntityName = @"Test";
 - (void)createTestEntitiesAndWaitWithContext:(NSManagedObjectContext *)context objectCount:(NSUInteger)objectCount {
     
     [context performBlockAndWait:^{
-        NSLog(@"Creation of %lu entities start time %@", (unsigned long)objectCount, [NSDate date]);
+        //NSLog(@"Creation of %lu entities start time %@", (unsigned long)objectCount, [NSDate date]);
         NSEntityDescription *testEntityDescriptionBG = [NSEntityDescription entityForName:kTestEntityName
                                                                    inManagedObjectContext:context];
         for (NSUInteger itemIndex =1; itemIndex <=objectCount; itemIndex++) {
             [self createTestEntityObject:testEntityDescriptionBG withNumberValue:itemIndex inContext:context];
         }
-        NSLog(@"Creation of %lu entities completion time %@", (unsigned long)objectCount, [NSDate date]);
+        //NSLog(@"Creation of %lu entities completion time %@", (unsigned long)objectCount, [NSDate date]);
         XCTAssert(context.hasChanges, @"Should have changes for objects added in above loop");
     }];
 }
