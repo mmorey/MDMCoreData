@@ -263,7 +263,9 @@ NSString * const kTestEntityName = @"Test";
     [self createTestEntitiesAndWaitWithContext:backgroundMOC objectCount:objCountBG];
     
     //Start concurrent operations - one for background save and another for foreground fetch
-    //  Time taken for foreground retrieve should not exceed 1 second
+    //  Time taken for foreground retrieve should not exceed 1 second (observed around 0.0002 seconds
+    //  for fetch vs 12 seconds for saving 1 million Test entities on a Mac Book Pro 2.8GHz Intel Core
+    //  i7 based iPhone Simulator debug mode)
     //  It is feasible to calibrate for the expected fetch time on current running device - but a max of 1 second should suffice for this test.
     
     //Concurrent Op 1: Background Save
