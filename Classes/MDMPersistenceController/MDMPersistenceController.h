@@ -76,6 +76,18 @@ extern NSString *const MDMPersistenceControllerDidInitialize;
 - (NSManagedObjectContext *)newChildManagedObjectContext;
 
 /**
+ Returns a new independent managed object context with a concurrency type of `NSPrivateQueueConcurrencyType` using the
+ same managed object model and persistent store as the main context but a NEW persistent store coordinator. This is
+ useful when performing large (time consuming) updates to the database in the background. The main context
+ can continue to read from the store but will have to wait to perform any updates - this uses the WAL
+ feature of SQLite (default SQLite mode from iOS7 onwards).
+ 
+ @return A private independent managed object context with a concurrency type of `NSPrivateQueueConcurrencyType`
+ or nil if an error occured.
+ */
+- (NSManagedObjectContext *)createPrivateManagedObjectContextWithNewPersistentStoreCoordinator;
+
+/**
  Attempts to commit unsaved changes to registered objects to disk.
  
  @param wait If set the primary context is saved synchronously otherwise asynchronously.
