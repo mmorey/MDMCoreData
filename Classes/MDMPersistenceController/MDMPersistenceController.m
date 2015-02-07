@@ -25,6 +25,7 @@
 #import "MDMCoreDataMacros.h"
 
 NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControllerDidInitialize";
+NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndpendentManagedObjectContextDidSaveNotification";
 
 @interface MDMPersistenceController ()
 
@@ -299,7 +300,25 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
         return nil;
     }
     
+    // Setup observer to receive this context's save operation completion and further broadcast using predefined notification name.
+    if(privateContext) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(independentManagedObjectContextDidSaveNotification:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:(privateContext)];
+    }
+
     return privateContext;
+}
+
+/**
+ Receive notification whenever any independent context (created thru this class) completes save operation and further
+ broadcast using a predefined notification name.
+ */
+- (void)independentManagedObjectContextDidSaveNotification:(NSNotification *)notification {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
+                                                        object:notification.object];
 }
 
 #pragma mark - NSNotificationCenter
