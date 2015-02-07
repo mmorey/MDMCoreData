@@ -30,6 +30,11 @@
 extern NSString *const MDMPersistenceControllerDidInitialize;
 
 /**
+ Posted whenever any independent managed object context (created thru this class) completes a save operation.
+ */
+extern NSString *const MDMIndpendentManagedObjectContextDidSaveNotification;
+
+/**
  `MDMPersistenceController` is a lightweight class that sets up an efficient Core Data stack with support for
  creating multiple child managed object contexts. A private managed object context is used for asynchronous
  saving. A SQLite store is used for data persistence.
