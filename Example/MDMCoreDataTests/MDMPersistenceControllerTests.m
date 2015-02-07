@@ -31,6 +31,7 @@ NSString * const kTestEntityName = @"Test";
 @property (nonatomic, strong) MDMPersistenceController *persistenceController;
 @property (nonatomic, strong) NSURL *storeURL;
 @property (nonatomic) NSUInteger notificationCounter;
+@property (nonatomic) NSUInteger backgroundSaveNotificationCounter;
 
 @end
 
@@ -246,11 +247,22 @@ NSString * const kTestEntityName = @"Test";
 }
 
 /**
+ Receive and track notification of any backgroundMOC saves.
+ */
+- (void)backgroundManagedObjectContextDidSaveNotification:(NSNotification *)notification {
+
+    self.backgroundSaveNotificationCounter += 1;
+}
+
+/**
  Test fetching in foreground context without any waiting while background context is saving (writing).
  */
 - (void)testPrivateManagedObjectContextWithNewPersistentStoreCoordinator {
     
     NSManagedObjectContext *foregroundMOC = self.persistenceController.managedObjectContext;
+    //Register to receive background save notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundManagedObjectContextDidSaveNotification:) name:MDMIndpendentManagedObjectContextDidSaveNotification object:nil];
+    self.backgroundSaveNotificationCounter = 0;
     
     //Create independent background context
     NSManagedObjectContext * backgroundMOC = [self.persistenceController createPrivateManagedObjectContextWithNewPersistentStoreCoordinator];
@@ -300,6 +312,9 @@ NSString * const kTestEntityName = @"Test";
     //Validate all objects created in backgroundMOC are known to the foregroundMOC
     [foregroundMOC reset];
     [self fetchInContext:foregroundMOC validateObjectCount:objCountBG validateMaxFetchTime:-1];
+    
+    //Validate reception of notification from background save operation completion
+    XCTAssertEqual(self.backgroundSaveNotificationCounter, 1, @"Should have received background save notification.");
 }
 
 
