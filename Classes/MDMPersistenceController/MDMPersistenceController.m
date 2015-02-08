@@ -312,13 +312,20 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
 }
 
 /**
- Receive notification whenever any independent context (created thru this class) completes save operation and further
- broadcast using a predefined notification name.
+ Called whenever any independent context (created thru this class) completes save operation and further
+ broadcasts using a predefined notification name.
  */
 - (void)independentManagedObjectContextDidSaveNotification:(NSNotification *)notification {
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
+
+    if([NSThread isMainThread] == NO) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
+                                                                object:notification.object];
+        });
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
                                                         object:notification.object];
+    }
 }
 
 #pragma mark - NSNotificationCenter
