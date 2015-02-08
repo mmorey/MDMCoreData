@@ -31,7 +31,7 @@ NSString * const kTestEntityName = @"Test";
 @property (nonatomic, strong) MDMPersistenceController *persistenceController;
 @property (nonatomic, strong) NSURL *storeURL;
 @property (nonatomic) NSUInteger notificationCounter;
-@property (nonatomic) NSUInteger backgroundSaveNotificationCounter;
+@property (nonatomic, strong) XCTestExpectation *backgroundSaveNotificationExpectation;
 
 @end
 
@@ -247,11 +247,11 @@ NSString * const kTestEntityName = @"Test";
 }
 
 /**
- Receive and track notification of any backgroundMOC saves.
+ Receive notification of any backgroundMOC saves and indicate fullfilment of expectation.
  */
 - (void)backgroundManagedObjectContextDidSaveNotification:(NSNotification *)notification {
 
-    self.backgroundSaveNotificationCounter += 1;
+    [self.backgroundSaveNotificationExpectation fulfill];
 }
 
 /**
@@ -262,7 +262,9 @@ NSString * const kTestEntityName = @"Test";
     NSManagedObjectContext *foregroundMOC = self.persistenceController.managedObjectContext;
     //Register to receive background save notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundManagedObjectContextDidSaveNotification:) name:MDMIndpendentManagedObjectContextDidSaveNotification object:nil];
-    self.backgroundSaveNotificationCounter = 0;
+    
+    //Initialize expectation for receiving background save notification 
+    self.backgroundSaveNotificationExpectation = [self expectationWithDescription:@"Should have received background save notification"];
     
     //Create independent background context
     NSManagedObjectContext * backgroundMOC = [self.persistenceController createPrivateManagedObjectContextWithNewPersistentStoreCoordinator];
@@ -313,8 +315,12 @@ NSString * const kTestEntityName = @"Test";
     [foregroundMOC reset];
     [self fetchInContext:foregroundMOC validateObjectCount:objCountBG validateMaxFetchTime:-1];
     
-    //Validate reception of notification from background save operation completion
-    XCTAssertEqual(self.backgroundSaveNotificationCounter, 1, @"Should have received background save notification.");
+    // Run the main queue loop for some time to allow processing of notification from background save operation completion.
+    // After specified time interval if expectations not met, the test will fail specifying the failed expectation.
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+    }];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MDMIndpendentManagedObjectContextDidSaveNotification object:nil];
 }
 
 
