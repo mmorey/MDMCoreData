@@ -50,7 +50,6 @@ NSString * const kTestEntityName = @"Test";
     NSManagedObjectModel *mom = [[NSManagedObjectModel alloc] init];
     NSEntityDescription *testEntity = [[NSEntityDescription alloc] init];
     [testEntity setName:kTestEntityName];
-    //[testEntity setManagedObjectClassName:@"Test"]; This class is not defined so lets define it or remove this line to avoid runtime warning.
     NSAttributeDescription *stringAttribute = [[NSAttributeDescription alloc] init];
     [stringAttribute setName:@"testString"];
     [stringAttribute setAttributeType:NSStringAttributeType];
