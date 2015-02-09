@@ -304,7 +304,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(independentManagedObjectContextDidSaveNotification:)
                                                  name:NSManagedObjectContextDidSaveNotification
-                                               object:(privateContext)];
+                                               object:privateContext];
 
     return privateContext;
 }
