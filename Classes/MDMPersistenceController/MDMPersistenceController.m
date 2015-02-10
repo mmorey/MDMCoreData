@@ -25,6 +25,7 @@
 #import "MDMCoreDataMacros.h"
 
 NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControllerDidInitialize";
+NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndpendentManagedObjectContextDidSaveNotification";
 
 @interface MDMPersistenceController ()
 
@@ -66,7 +67,13 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
     return nil;
 }
 
-- (BOOL)setupPersistenceStack {
+- (NSPersistentStoreCoordinator *)setupNewPersistentStoreCoordinator {
+
+    if (self.model == nil) {
+        // App is useless without a data model
+        ALog(@"ERROR: Cannot create a new persistent store coordinator as model is nil");
+        return nil;
+    }
     
     // Create persistent store coordinator
     NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
@@ -99,7 +106,7 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
             
             ALog(@"ERROR: Could not remove SQLite files\n%@", [removeSQLiteFilesError localizedDescription]);
             
-            return NO;
+            return nil;
         }
         
         if (persistentStore == nil) {
@@ -107,8 +114,18 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
             // Something really bad is happening
             ALog(@"ERROR: NSPersistentStore is nil: %@\n%@", [persistentStoreError localizedDescription], [persistentStoreError userInfo]);
             
-            return NO;
+            return nil;
         }
+    }
+    return persistentStoreCoordinator;
+}
+
+- (BOOL)setupPersistenceStack {
+
+    // Setup persistent store coordinator
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [self setupNewPersistentStoreCoordinator];
+    if (persistentStoreCoordinator == nil) {
+        return NO;
     }
     
     // Create managed object contexts
@@ -256,6 +273,57 @@ NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControll
     [childManagedObjectContext setParentContext:self.managedObjectContext];
     
     return childManagedObjectContext;
+}
+
+#pragma mark - Independent Context 
+
+- (NSManagedObjectContext *)createPrivateManagedObjectContextWithNewPersistentStoreCoordinator {
+    //Based on https://github.com/mmorey/MDMHPCoreData
+    
+    if (self.managedObjectContext == nil) {
+        // The primary persistent stack should have been initialized as part of this object's initialization - did it fail?
+        ALog(@"WARNING: Main context should have already been initialized by now!");
+        //return nil;
+    }
+    
+    // Setup new persistent store coordinator
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [self setupNewPersistentStoreCoordinator];
+    if (persistentStoreCoordinator == nil) {
+        return nil;
+    }
+    
+    // Create private managed object context
+    NSManagedObjectContext *privateContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [privateContext setPersistentStoreCoordinator:persistentStoreCoordinator];
+    if (privateContext == nil) {
+        ALog(@"ERROR: Failed to create managed object context");
+        return nil;
+    }
+    
+    // Setup observer to receive this context's save operation completion and further broadcast using predefined notification name.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(independentManagedObjectContextDidSaveNotification:)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:privateContext];
+
+    return privateContext;
+}
+
+/**
+ Called whenever any independent context (created thru this class) completes save operation and further
+ broadcasts using a predefined notification name.
+ */
+- (void)independentManagedObjectContextDidSaveNotification:(NSNotification *)notification {
+
+    if([NSThread isMainThread] == NO) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
+                                                                object:notification.object];
+        });
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
+                                                        object:notification.object];
+    }
 }
 
 #pragma mark - NSNotificationCenter
