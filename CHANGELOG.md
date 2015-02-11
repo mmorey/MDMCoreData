@@ -1,5 +1,13 @@
 # MDMCoreData CHANGELOG
 
+## 1.4.0
+* Added feature: Create a new independent managed object context with a concurrency type of
+NSPrivateQueueConcurrencyType using the same managed object model and persistent store as
+the main context but a NEW persistent store coordinator. This is useful when performing
+large (time consuming) updates to the database in the background. The main context can
+continue to read from the store but will have to wait to perform any updates - this uses
+the WAL feature of SQLite (default SQLite mode from iOS7 onwards). (Parmeshwar Bayappu)
+
 ## 1.3.5
 * Import UIKit now that new Xcode projects don't come with precompiled headers (Dan Berry)
 
