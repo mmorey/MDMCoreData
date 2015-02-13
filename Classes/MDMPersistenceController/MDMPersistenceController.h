@@ -47,7 +47,7 @@ extern NSString *const MDMIndpendentManagedObjectContextDidSaveNotification;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 
 /**
- Returns a persistence controller initialized with the given arguments.
+ Returns a SQLite backed persistence controller initialized with the given arguments.
  
  @param storeURL The URL of the SQLite store to load.
  @param model A managed object model.
@@ -57,7 +57,7 @@ extern NSString *const MDMIndpendentManagedObjectContextDidSaveNotification;
 - (id)initWithStoreURL:(NSURL *)storeURL model:(NSManagedObjectModel *)model;
 
 /**
- Returns a persistence controller initialized with the given arguments.
+ Returns a SQLite backed persistence controller initialized with the given arguments.
  
  @param storeURL The URL of the SQLite store to load.
  @param modelURL The URL of the managed object model.
@@ -65,6 +65,24 @@ extern NSString *const MDMIndpendentManagedObjectContextDidSaveNotification;
  @return A new persistence controller object with a store at the specified location and a model at the specified location.
  */
 - (id)initWithStoreURL:(NSURL *)storeURL modelURL:(NSURL *)modelURL;
+
+/**
+ Returns an inMemory backed persistence controller initialized with the given arguments.
+ 
+ @param model A managed object model.
+ 
+ @return A new persistence controller object with an inMemoryStore type with model.
+ */
+- (id)initInMemoryTypeWithModel:(NSManagedObjectModel *)model;
+
+/**
+ Returns an inMemory backed persistence controller initialized with the given arguments.
+ 
+ @param modelURL The URL of the managed object model.
+ 
+ @return A new persistence controller object with an inMemoryStore type with a model at the specified location.
+ */
+- (id)initInMemoryTypeWithModelURL:(NSURL *)modelURL;
 
 /**
  Returns a new private child managed object context with a concurrency type of `NSPrivateQueueConcurrencyType`.

@@ -31,6 +31,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
 
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSManagedObjectContext *writerObjectContext;
+@property (nonatomic, copy) NSString *storeType;
 @property (nonatomic, strong) NSURL *storeURL;
 @property (nonatomic, strong) NSManagedObjectModel *model;
 
@@ -42,7 +43,22 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     
     self = [super init];
     if (self) {
+        _storeType = NSSQLiteStoreType;
         _storeURL = storeURL;
+        _model = model;
+        if ([self setupPersistenceStack] == NO) {
+            return nil;
+        }
+    }
+    
+    return self;
+}
+
+- (id)initInMemoryTypeWithModel:(NSManagedObjectModel *)model {
+    
+    self = [super init];
+    if (self) {
+        _storeType = NSInMemoryStoreType;
         _model = model;
         if ([self setupPersistenceStack] == NO) {
             return nil;
@@ -60,6 +76,14 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     return [self initWithStoreURL:storeURL model:model];
 }
 
+- (id)initInMemoryTypeWithModelURL:(NSURL *)modelURL {
+    
+    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    ZAssert(model, @"ERROR: NSManagedObjectModel is nil");
+    
+    return [self initInMemoryTypeWithModel:model];
+}
+
 - (instancetype)init {
     
     ALog(@"ERROR: Ensure MDMPersistenceController is instantiated using the designated initializer(s)");
@@ -67,8 +91,8 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     return nil;
 }
 
-- (NSPersistentStoreCoordinator *)setupNewPersistentStoreCoordinator {
-
+- (NSPersistentStoreCoordinator *)setupNewPersistentStoreCoordinatorWithStoreType:(NSString *)storeType {
+    
     if (self.model == nil) {
         // App is useless without a data model
         ALog(@"ERROR: Cannot create a new persistent store coordinator as model is nil");
@@ -85,19 +109,19 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
                                              NSMigratePersistentStoresAutomaticallyOption:@YES
                                              };
     NSError *persistentStoreError;
-    NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+    NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:storeType
                                                                                   configuration:nil
                                                                                             URL:self.storeURL
                                                                                         options:persistentStoreOptions
                                                                                           error:&persistentStoreError];
-    if (persistentStore == nil) {
+    if (persistentStore == nil && [storeType isEqualToString:NSSQLiteStoreType]) {
         
         // Model has probably changed, lets delete the old one and try again
         NSError *removeSQLiteFilesError = nil;
         if ([self removeSQLiteFilesAtStoreURL:self.storeURL error:&removeSQLiteFilesError]) {
             
             persistentStoreError = nil;
-            persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+            persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:storeType
                                                                        configuration:nil
                                                                                  URL:self.storeURL
                                                                              options:persistentStoreOptions
@@ -123,7 +147,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
 - (BOOL)setupPersistenceStack {
 
     // Setup persistent store coordinator
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [self setupNewPersistentStoreCoordinator];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [self setupNewPersistentStoreCoordinatorWithStoreType:self.storeType];
     if (persistentStoreCoordinator == nil) {
         return NO;
     }
@@ -287,7 +311,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     }
     
     // Setup new persistent store coordinator
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [self setupNewPersistentStoreCoordinator];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [self setupNewPersistentStoreCoordinatorWithStoreType:self.storeType];
     if (persistentStoreCoordinator == nil) {
         return nil;
     }
