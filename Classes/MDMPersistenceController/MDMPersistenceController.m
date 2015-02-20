@@ -39,7 +39,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
 
 @implementation MDMPersistenceController
 
-- (id)initWithStoreURL:(NSURL *)storeURL model:(NSManagedObjectModel *)model {
+- (instancetype)initWithStoreURL:(NSURL *)storeURL model:(NSManagedObjectModel *)model {
     
     self = [super init];
     if (self) {
@@ -54,7 +54,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     return self;
 }
 
-- (id)initInMemoryTypeWithModel:(NSManagedObjectModel *)model {
+- (instancetype)initInMemoryTypeWithModel:(NSManagedObjectModel *)model {
     
     self = [super init];
     if (self) {
@@ -68,7 +68,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     return self;
 }
 
-- (id)initWithStoreURL:(NSURL *)storeURL modelURL:(NSURL *)modelURL {
+- (instancetype)initWithStoreURL:(NSURL *)storeURL modelURL:(NSURL *)modelURL {
     
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     ZAssert(model, @"ERROR: NSManagedObjectModel is nil");
@@ -76,7 +76,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     return [self initWithStoreURL:storeURL model:model];
 }
 
-- (id)initInMemoryTypeWithModelURL:(NSURL *)modelURL {
+- (instancetype)initInMemoryTypeWithModelURL:(NSURL *)modelURL {
     
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     ZAssert(model, @"ERROR: NSManagedObjectModel is nil");
@@ -132,15 +132,16 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
             
             return nil;
         }
-        
-        if (persistentStore == nil) {
-            
-            // Something really bad is happening
-            ALog(@"ERROR: NSPersistentStore is nil: %@\n%@", [persistentStoreError localizedDescription], [persistentStoreError userInfo]);
-            
-            return nil;
-        }
     }
+    
+    if (persistentStore == nil) {
+        
+        // Something really bad is happening
+        ALog(@"ERROR: NSPersistentStore is nil: %@\n%@", [persistentStoreError localizedDescription], [persistentStoreError userInfo]);
+        
+        return nil;
+    }
+    
     return persistentStoreCoordinator;
 }
 
