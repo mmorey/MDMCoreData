@@ -45,7 +45,8 @@ To run the example project clone the repo and open `MDMCoreData.xcworkspace`. A 
 
 ### MDMPersistenceController
 
-To create a new `MDMPersistenceController` call `initWithStoreURL:modelURL:` with the URLs of the SQLite file and data model.
+#### Store type - SQLite (`NSSQLiteStoreType`)
+The typical store type used when utilizing Core Data is `SQLite`. To create a new `MDMPersistenceController` call `initWithStoreURL:modelURL:` with the URLs of the SQLite file and data model.
 
 ```objective-c
 NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MDMCoreData.sqlite"];
@@ -54,6 +55,16 @@ self.persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:
                                                                        modelURL:modelURL];
 ```
 
+#### Store type - InMemory (`NSInMemoryStoreType`)
+An alternative (not a widely used) store type is an `InMemory` store. This type of store is particularly useful when long term persistence is not required e.g. testing.  
+To create a new `MDMPersistenceController` (backed by an inMemoryStore type) call ` initInMemoryTypeWithModelURL:modelURL` with the URL of the data model.
+
+```objective-c
+NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MDMCoreData" withExtension:@"momd"];
+self.persistenceController = [[MDMPersistenceController alloc] initInMemoryTypeWithModelURL:modelURL];
+```
+
+#### Managed Object Context
 Easily access the main queue managed object context via the public `managedObjectContext` property.
 
 ```objective-c
@@ -71,6 +82,7 @@ To save changes, call `saveContextAndWait:completion:` with an optional completi
 }];
 ```
 
+#### Child contexts
 New child contexts can be created with the main queue or a private queue for background work.
 
 ```objective-c
