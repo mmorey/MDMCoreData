@@ -297,9 +297,9 @@ NSString * const kTestEntityName = @"Test";
     // Looping demonstrates the typical use case where fetches continue to happen in the
     // foreground triggered by user interaction - while a background save is in progress.
     for (int index =0; index<3; index++) {
-        sleep(0.05); //user interaction
+        [NSThread sleepForTimeInterval:0.05]; //user interaction
         [foregroundMOC reset];
-        [self fetchInContext:foregroundMOC validateObjectCount:-1.0 validateMaxFetchTime:maxExpectedFetchTime];
+        [self fetchInContext:foregroundMOC validateObjectCount:-1 validateMaxFetchTime:maxExpectedFetchTime];
     }
     NSDate *multifetchCompletionTime = [NSDate date];
     NSLog(@"Foreground Multiple Fetch completion time %@. Time taken %f", multifetchCompletionTime, [multifetchCompletionTime timeIntervalSinceDate:multifetchStartTime] );
