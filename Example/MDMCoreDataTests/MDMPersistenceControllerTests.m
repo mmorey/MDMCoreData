@@ -50,7 +50,6 @@ NSString * const kTestEntityName = @"Test";
     NSManagedObjectModel *mom = [[NSManagedObjectModel alloc] init];
     NSEntityDescription *testEntity = [[NSEntityDescription alloc] init];
     [testEntity setName:kTestEntityName];
-    //[testEntity setManagedObjectClassName:@"Test"]; This class is not defined so lets define it or remove this line to avoid runtime warning.
     NSAttributeDescription *stringAttribute = [[NSAttributeDescription alloc] init];
     [stringAttribute setName:@"testString"];
     [stringAttribute setAttributeType:NSStringAttributeType];
@@ -292,14 +291,13 @@ NSString * const kTestEntityName = @"Test";
     }];
     
     //Concurrent Op 2: Foreground Fetch
-    sleep(0.05); //let the background save begin
     NSTimeInterval maxExpectedFetchTime = 1.0;
     NSDate * multifetchStartTime = [NSDate date];
     NSLog(@"Foreground Multiple Fetch start time %@", multifetchStartTime);
-    // Looping serves two purposes:
-    // 1) Accounts for cases where background save does not start immediately - though the sleep above should most likely suffice.
-    // 2) Demonstrating the difference in fetch times (before and after save completion) when using non-independent backgroundMOC.
+    // Looping demonstrates the typical use case where fetches continue to happen in the
+    // foreground triggered by user interaction - while a background save is in progress.
     for (int index =0; index<3; index++) {
+        sleep(0.05); //user interaction
         [foregroundMOC reset];
         [self fetchInContext:foregroundMOC validateObjectCount:-1.0 validateMaxFetchTime:maxExpectedFetchTime];
     }

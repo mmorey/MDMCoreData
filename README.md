@@ -78,6 +78,11 @@ NSManagedObjectContext *privateContextForScratchPadWork = [self.persistenceContr
 
 NSManagedObjectContext *privateContextForDoingBackgroundWork = [self.persistenceController newPrivateChildManagedObjectContext];
 ```
+In scenarios where it is desired that the background save (file write) operation does not block the fetches (file read) on the main (UI) context, a private queue with independent persistent store coordinator can be created.
+
+```objective-c
+NSManagedObjectContext *independentContextForDoingBackgroundWork = [self.persistenceController createPrivateManagedObjectContextWithNewPersistentStoreCoordinator];
+```
 For more information please see the [documentation](http://cocoadocs.org/docsets/MDMCoreData).
 
 ### MDMFetchedResults[Table|Collection]DataSource

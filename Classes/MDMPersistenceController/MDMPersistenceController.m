@@ -301,12 +301,10 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
     }
     
     // Setup observer to receive this context's save operation completion and further broadcast using predefined notification name.
-    if(privateContext) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(independentManagedObjectContextDidSaveNotification:)
-                                                     name:NSManagedObjectContextDidSaveNotification
-                                                   object:(privateContext)];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(independentManagedObjectContextDidSaveNotification:)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:privateContext];
 
     return privateContext;
 }
