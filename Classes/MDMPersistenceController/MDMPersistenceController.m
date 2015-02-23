@@ -25,7 +25,7 @@
 #import "MDMCoreDataMacros.h"
 
 NSString *const MDMPersistenceControllerDidInitialize = @"MDMPersistenceControllerDidInitialize";
-NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndpendentManagedObjectContextDidSaveNotification";
+NSString *const MDMIndependentManagedObjectContextDidSaveNotification = @"MDMIndependentManagedObjectContextDidSaveNotification";
 
 @interface MDMPersistenceController ()
 
@@ -317,11 +317,11 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
 
     if([NSThread isMainThread] == NO) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
+            [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndependentManagedObjectContextDidSaveNotification
                                                                 object:notification.object];
         });
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndpendentManagedObjectContextDidSaveNotification
+        [[NSNotificationCenter defaultCenter] postNotificationName:MDMIndependentManagedObjectContextDidSaveNotification
                                                         object:notification.object];
     }
 }

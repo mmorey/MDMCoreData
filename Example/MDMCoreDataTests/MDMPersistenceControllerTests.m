@@ -260,7 +260,7 @@ NSString * const kTestEntityName = @"Test";
     
     NSManagedObjectContext *foregroundMOC = self.persistenceController.managedObjectContext;
     //Register to receive background save notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundManagedObjectContextDidSaveNotification:) name:MDMIndpendentManagedObjectContextDidSaveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundManagedObjectContextDidSaveNotification:) name:MDMIndependentManagedObjectContextDidSaveNotification object:nil];
     
     //Initialize expectation for receiving background save notification 
     self.backgroundSaveNotificationExpectation = [self expectationWithDescription:@"Should have received background save notification"];
@@ -317,8 +317,8 @@ NSString * const kTestEntityName = @"Test";
     // After specified time interval if expectations not met, the test will fail specifying the failed expectation.
     [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
     }];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MDMIndpendentManagedObjectContextDidSaveNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MDMIndependentManagedObjectContextDidSaveNotification object:nil];
 }
 
 

@@ -32,7 +32,7 @@ extern NSString *const MDMPersistenceControllerDidInitialize;
 /**
  Posted whenever any independent managed object context (created thru this class) completes a save operation.
  */
-extern NSString *const MDMIndpendentManagedObjectContextDidSaveNotification;
+extern NSString *const MDMIndependentManagedObjectContextDidSaveNotification;
 
 /**
  `MDMPersistenceController` is a lightweight class that sets up an efficient Core Data stack with support for
