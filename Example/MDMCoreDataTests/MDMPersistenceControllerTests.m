@@ -266,7 +266,7 @@ NSString * const kTestEntityName = @"Test";
     self.backgroundSaveNotificationExpectation = [self expectationWithDescription:@"Should have received background save notification"];
     
     //Create independent background context
-    NSManagedObjectContext * backgroundMOC = [self.persistenceController createPrivateManagedObjectContextWithNewPersistentStoreCoordinator];
+    NSManagedObjectContext * backgroundMOC = [self.persistenceController newIndependentManagedObjectContext];
     //To test fail scenario - uncomment the below line to use a context that has the same PersistentStoreCoordinator as the foregroundMOC
     //NSManagedObjectContext *backgroundMOC = [self.persistenceController performSelector:sel_getUid("writerObjectContext")];
     XCTAssertNotNil(backgroundMOC, @"Should not fail creation of background context");

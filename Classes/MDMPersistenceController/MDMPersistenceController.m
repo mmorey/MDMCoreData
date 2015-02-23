@@ -277,7 +277,7 @@ NSString *const MDMIndpendentManagedObjectContextDidSaveNotification = @"MDMIndp
 
 #pragma mark - Independent Context 
 
-- (NSManagedObjectContext *)createPrivateManagedObjectContextWithNewPersistentStoreCoordinator {
+- (NSManagedObjectContext *)newIndependentManagedObjectContext {
     //Based on https://github.com/mmorey/MDMHPCoreData
     
     if (self.managedObjectContext == nil) {
