@@ -32,7 +32,7 @@ extern NSString *const MDMPersistenceControllerDidInitialize;
 /**
  Posted whenever any independent managed object context (created thru this class) completes a save operation.
  */
-extern NSString *const MDMIndpendentManagedObjectContextDidSaveNotification;
+extern NSString *const MDMIndependentManagedObjectContextDidSaveNotification;
 
 /**
  `MDMPersistenceController` is a lightweight class that sets up an efficient Core Data stack with support for
@@ -88,9 +88,9 @@ extern NSString *const MDMIndpendentManagedObjectContextDidSaveNotification;
  feature of SQLite (default SQLite mode from iOS7 onwards).
  
  @return A private independent managed object context with a concurrency type of `NSPrivateQueueConcurrencyType`
- or nil if an error occured.
+ or nil if an error occurred.
  */
-- (NSManagedObjectContext *)createPrivateManagedObjectContextWithNewPersistentStoreCoordinator;
+- (NSManagedObjectContext *)newIndependentManagedObjectContext;
 
 /**
  Attempts to commit unsaved changes to registered objects to disk.
