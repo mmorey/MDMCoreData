@@ -260,13 +260,13 @@ NSString * const kTestEntityName = @"Test";
     
     NSManagedObjectContext *foregroundMOC = self.persistenceController.managedObjectContext;
     //Register to receive background save notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundManagedObjectContextDidSaveNotification:) name:MDMIndpendentManagedObjectContextDidSaveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundManagedObjectContextDidSaveNotification:) name:MDMIndependentManagedObjectContextDidSaveNotification object:nil];
     
     //Initialize expectation for receiving background save notification 
     self.backgroundSaveNotificationExpectation = [self expectationWithDescription:@"Should have received background save notification"];
     
     //Create independent background context
-    NSManagedObjectContext * backgroundMOC = [self.persistenceController createPrivateManagedObjectContextWithNewPersistentStoreCoordinator];
+    NSManagedObjectContext * backgroundMOC = [self.persistenceController newIndependentManagedObjectContext];
     //To test fail scenario - uncomment the below line to use a context that has the same PersistentStoreCoordinator as the foregroundMOC
     //NSManagedObjectContext *backgroundMOC = [self.persistenceController performSelector:sel_getUid("writerObjectContext")];
     XCTAssertNotNil(backgroundMOC, @"Should not fail creation of background context");
@@ -297,9 +297,9 @@ NSString * const kTestEntityName = @"Test";
     // Looping demonstrates the typical use case where fetches continue to happen in the
     // foreground triggered by user interaction - while a background save is in progress.
     for (int index =0; index<3; index++) {
-        sleep(0.05); //user interaction
+        [NSThread sleepForTimeInterval:0.05]; //user interaction
         [foregroundMOC reset];
-        [self fetchInContext:foregroundMOC validateObjectCount:-1.0 validateMaxFetchTime:maxExpectedFetchTime];
+        [self fetchInContext:foregroundMOC validateObjectCount:-1 validateMaxFetchTime:maxExpectedFetchTime];
     }
     NSDate *multifetchCompletionTime = [NSDate date];
     NSLog(@"Foreground Multiple Fetch completion time %@. Time taken %f", multifetchCompletionTime, [multifetchCompletionTime timeIntervalSinceDate:multifetchStartTime] );
@@ -317,8 +317,8 @@ NSString * const kTestEntityName = @"Test";
     // After specified time interval if expectations not met, the test will fail specifying the failed expectation.
     [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
     }];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MDMIndpendentManagedObjectContextDidSaveNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MDMIndependentManagedObjectContextDidSaveNotification object:nil];
 }
 
 
