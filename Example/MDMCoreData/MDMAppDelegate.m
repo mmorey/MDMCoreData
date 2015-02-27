@@ -26,6 +26,8 @@
 #import <MDMCoreData.h>
 #import "MDMCoreDataFatalErrorAlertView.h"
 
+// #define USE_IN_MEMORY_STORE
+
 @interface MDMAppDelegate ()
 
 @property (nonatomic, strong) MDMPersistenceController *persistenceController;
@@ -71,9 +73,15 @@
 - (MDMPersistenceController *)persistenceController {
     
     if (_persistenceController == nil) {
-        NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MDMCoreData.sqlite"];
         NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MDMCoreData" withExtension:@"momd"];
+        
+#ifdef USE_IN_MEMORY_STORE
+        _persistenceController = [[MDMPersistenceController alloc] initInMemoryTypeWithModelURL:modelURL];
+#else
+        NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MDMCoreData.sqlite"];
         _persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:storeURL modelURL:modelURL];
+#endif
+
         if (_persistenceController == nil) {
             
             ALog(@"ERROR: Persistence controller could not be created");
