@@ -1,5 +1,9 @@
 # MDMCoreData CHANGELOG
 
+## 1.5.0
+* Added NSInMemoryStoreType option (Matt Glover)
+* Cleaned up method names (Parmeshwar Bayappu)
+
 ## 1.4.0
 * Added feature: Create a new independent managed object context with a concurrency type of
 NSPrivateQueueConcurrencyType using the same managed object model and persistent store as
