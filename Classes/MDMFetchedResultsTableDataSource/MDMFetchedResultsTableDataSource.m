@@ -27,8 +27,6 @@
 @interface MDMFetchedResultsTableDataSource ()
 
 @property (nonatomic, weak) UITableView *tableView;
-@property (nonatomic, strong) NSMutableIndexSet *sectionsBeingAdded;
-@property (nonatomic, strong) NSMutableIndexSet *sectionsBeingRemoved;
 
 @end
 
@@ -179,9 +177,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    
-    self.sectionsBeingAdded = [NSMutableIndexSet indexSet];
-    self.sectionsBeingRemoved = [NSMutableIndexSet indexSet];
     [self.tableView beginUpdates];
 }
 
@@ -192,14 +187,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
    
     switch (type) {
         case NSFetchedResultsChangeInsert:
-            [self.sectionsBeingAdded addIndex:sectionIndex];
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             
             break;
 
         case NSFetchedResultsChangeDelete:
-            [self.sectionsBeingRemoved addIndex:sectionIndex];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             
@@ -253,11 +246,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
             break;
     }
-}
-
-- (BOOL)shouldMakeMoveForMovedObjectFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    
-    return !([self.sectionsBeingRemoved containsIndex:fromIndexPath.section] || [self.sectionsBeingAdded containsIndex:toIndexPath.section]);
 }
 
 @end
