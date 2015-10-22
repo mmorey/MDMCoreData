@@ -181,7 +181,7 @@ Pull request are welcomed. To add functionality or to make changes:
 4. Ensure new public methods are documented and tested.
 5. Submit a pull request.
 
-You can also support future development of this project by purchasing [Core Data by Tutorials](http://www.raywenderlich.com/store/core-data-tutorials-ios-8-swift-edition?source=matthewmorey).
+You can also support future development of this project by purchasing [Core Data by Tutorials](http://www.raywenderlich.com/store/core-data-by-tutorials?source=matthewmorey).
 
 ## Author
 
