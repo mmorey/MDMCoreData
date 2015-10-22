@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MDMCoreData'
-  s.version          = '1.5.0'
+  s.version          = '1.5.1'
   s.summary          = 'A collection of lightweight Core Data classes for iOS and OS X.'
   s.description      = <<-DESC
                         MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. It is a much better alternative to using the Xcode Core Data Template. All classes are documented and a majority are unit tested.

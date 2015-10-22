@@ -1,5 +1,8 @@
 # MDMCoreData CHANGELOG
 
+## 1.5.1
+* Fixed cell move issue (http://www.hitmaroc.net/1166896-9192-how-reload-programmatically-moved-row.html)
+
 ## 1.5.0
 * Added NSInMemoryStoreType option (Matt Glover)
 * Cleaned up method names (Parmeshwar Bayappu)
