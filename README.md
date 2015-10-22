@@ -1,6 +1,6 @@
 # MDMCoreData
 
-A collection of lightweight Core Data classes for iOS and OS X as seen on [NSScreencast](http://nsscreencast.com/episodes/109-mdmcoredata). Support future development of this project by purchasing [Core Data by Tutorials](http://www.raywenderlich.com/store/core-data-tutorials-ios-8-swift-edition?source=matthewmorey).
+A collection of lightweight Core Data classes for iOS and OS X as seen on [NSScreencast](http://nsscreencast.com/episodes/109-mdmcoredata). Support future development of this project by purchasing [Core Data by Tutorials](http://www.raywenderlich.com/store/core-data-by-tutorials?source=matthewmorey).
 
 [![Version](https://cocoapod-badges.herokuapp.com/v/MDMCoreData/badge.png)](http://cocoadocs.org/docsets/MDMCoreData)
 [![Platform](https://cocoapod-badges.herokuapp.com/p/MDMCoreData/badge.png)](http://cocoadocs.org/docsets/MDMCoreData)
