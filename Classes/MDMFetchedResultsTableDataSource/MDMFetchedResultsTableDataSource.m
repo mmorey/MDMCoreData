@@ -240,9 +240,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             break;
 
         case NSFetchedResultsChangeMove:
-            //Fixed issue: https://github.com/mmorey/MDMCoreData/issues/36
-            //It's currently not possible to perform a move and reload inside the same tableview update block (http://www.hitmaroc.net/1166896-9192-how-reload-programmatically-moved-row.html). The workaround is to delete then insert the row.
-            
+            // It's currently not possible to perform a move and reload inside the same tableview update block (http://www.hitmaroc.net/1166896-9192-how-reload-programmatically-moved-row.html).
+            // The workaround is to delete then insert the row.
             [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
             [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
