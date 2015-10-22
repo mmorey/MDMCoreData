@@ -63,6 +63,15 @@
     }
 }
 
+- (IBAction)update:(UIBarButtonItem *)sender {
+    self.detailItem.timeStamp = [NSDate date];
+    [self.persistenceController saveContextAndWait:YES completion:^(NSError *error) {
+        if (!error) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }];
+}
+
 - (IBAction)delete:(UIBarButtonItem *)sender {
     
     [self.persistenceController deleteObject:self.detailItem saveContextAndWait:YES completion:^(NSError *error) {

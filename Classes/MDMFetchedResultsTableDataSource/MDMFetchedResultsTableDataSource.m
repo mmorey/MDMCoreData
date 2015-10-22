@@ -240,19 +240,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             break;
 
         case NSFetchedResultsChangeMove:
-            if ([self shouldMakeMoveForMovedObjectFromIndexPath:indexPath toIndexPath:newIndexPath]) {
-                [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
-            } else {
-                // This is to prevent a bug in UITableView from occurring.
-                // The bug presents itself when moving a row from a newly deleted section or to a newly inserted section
-                // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
-                // http://openradar.appspot.com/17684030
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                      withRowAnimation:UITableViewRowAnimationFade];
-                [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
-                                      withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
+            //Fixed issue: https://github.com/mmorey/MDMCoreData/issues/36
+            //It's currently not possible to perform a move and reload inside the same tableview update block (http://www.hitmaroc.net/1166896-9192-how-reload-programmatically-moved-row.html). The workaround is to delete then insert the row.
             
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+
             break;
         default:
             ALog(@"Missing NSFechedResultsChange case");
