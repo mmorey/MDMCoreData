@@ -8,7 +8,7 @@ A collection of lightweight Core Data classes for iOS and OS X as seen on [NSScr
 [![Twitter: @xzolian](https://img.shields.io/badge/contact-@xzolian-blue.svg?style=flat)](https://twitter.com/xzolian)
 
 
-MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduce boiler plate code. It is a much better alternative to using the Xcode Core Data Template. All classes are documented and a majority are unit tested.
+MDMCoreData is a growing collection of classes that make working with Core Data easier. It does not try to hide Core Data but instead enforces best practices and reduces boiler plate code. It is a much better alternative to using the Xcode Core Data Template. All classes are documented and a majority are unit tested.
 
 * __MDMPersistenceController (iOS, OS X)__ - A handy controller that sets up an efficient Core Data stack with support for creating multiple child managed object contexts. It has a built-in private managed object context that does asynchronous saving for you with a SQLite store.
 
@@ -169,11 +169,9 @@ If you don't need everything, you can install only what you need using separate 
 
 To install manually, just copy everything in the `Classes` directory into your Xcode project.
 
-_**Important:**_ If your project doesn't use ARC you must add the `-fobjc-arc` compiler flag to all MDMCoreData implementation files in Target Settings > Build Phases > Compile Sources.
-
 ## Contributing
 
-Pull request are welcomed. To add functionality or to make changes:
+Pull requests are welcomed. To add functionality or to make changes:
 
 1. Fork this repo.
 2. Open `MDMCoreData.xcworkspace` in the Example directory.
