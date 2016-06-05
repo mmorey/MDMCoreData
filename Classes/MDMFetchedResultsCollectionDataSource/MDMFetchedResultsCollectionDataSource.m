@@ -310,9 +310,16 @@
                             case NSFetchedResultsChangeUpdate:
                                 [self.collectionView reloadItemsAtIndexPaths:@[obj]];
                                 break;
-                            case NSFetchedResultsChangeMove:
-                                [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
-                                break;
+                            case NSFetchedResultsChangeMove:{
+                                // In Xcode 7 / iOS 9.0 NSFetchedResultsChangeMove is being sent instead of "update" with same NSIndexPath.
+                                // Issue: http://stackoverflow.com/questions/31383760/ios-9-attempt-to-delete-and-reload-the-same-index-path
+                                // This is workaround:
+                                if ([obj[0] isEqual:obj[1]]) {
+                                    [self.collectionView reloadItemsAtIndexPaths:@[obj[0]]];
+                                } else {
+                                    [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
+                                }
+                            } break;
                         }
                     }];
                 }
