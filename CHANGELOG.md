@@ -1,5 +1,9 @@
 # MDMCoreData CHANGELOG
 
+## 1.5.2
+* Fix issue with updating NSFetchedResults in iOS9 (Michal Zaborowsk)
+* Corrected some typos and removed reference to ARC (Jeff Sherin)
+
 ## 1.5.1
 * Fixed cell move issue (http://www.hitmaroc.net/1166896-9192-how-reload-programmatically-moved-row.html)
 
