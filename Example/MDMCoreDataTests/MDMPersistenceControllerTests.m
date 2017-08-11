@@ -25,6 +25,7 @@
 #import <MDMCoreData.h>
 
 NSString * const kTestEntityName = @"Test";
+NSString * const kTestFetchRequestTemplateName = @"FetchRequest";
 
 @interface MDMPersistenceControllerTests : XCTestCase
 
@@ -55,6 +56,11 @@ NSString * const kTestEntityName = @"Test";
     [stringAttribute setAttributeType:NSStringAttributeType];
     [testEntity setProperties:@[stringAttribute]];
     [mom setEntities:@[testEntity]];
+    
+    // Set template fetch requests
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:testEntity];
+    [mom setFetchRequestTemplate:fetchRequest forName:kTestFetchRequestTemplateName];
     
     self.persistenceController = [[MDMPersistenceController alloc] initWithStoreURL:self.storeURL model:mom];
 }
@@ -129,6 +135,27 @@ NSString * const kTestEntityName = @"Test";
     [self.persistenceController.managedObjectContext reset];
     
     NSFetchRequest *fetchRequst = [[NSFetchRequest alloc] initWithEntityName:[testEntityDescription name]];
+    NSArray *results = [self.persistenceController.managedObjectContext executeFetchRequest:fetchRequst error:NULL];
+    NSManagedObject *persistedTestObject = [results lastObject];
+    
+    XCTAssertEqual([results count], (NSUInteger)1, @"Should have one item");
+    XCTAssertEqualObjects([persistedTestObject valueForKey:@"testString"], @"dummy", @"Should have a value of dummy");
+}
+
+- (void)testExposedReadonlyModel {
+    
+    NSEntityDescription *testEntityDescription = [NSEntityDescription entityForName:kTestEntityName
+                                                             inManagedObjectContext:self.persistenceController.managedObjectContext];
+    NSManagedObject *testObject = [[NSManagedObject alloc] initWithEntity:testEntityDescription
+                                           insertIntoManagedObjectContext:self.persistenceController.managedObjectContext];
+    [testObject setValue:@"dummy" forKey:@"testString"];
+    
+    XCTAssertNotNil(testObject, @"Should not have nil object");
+    
+    [self.persistenceController saveContextAndWait:YES completion:nil];
+    [self.persistenceController.managedObjectContext reset];
+    
+    NSFetchRequest *fetchRequst = [self.persistenceController.model fetchRequestTemplateForName:kTestFetchRequestTemplateName];
     NSArray *results = [self.persistenceController.managedObjectContext executeFetchRequest:fetchRequst error:NULL];
     NSManagedObject *persistedTestObject = [results lastObject];
     

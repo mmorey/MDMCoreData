@@ -47,6 +47,11 @@ extern NSString *const MDMIndependentManagedObjectContextDidSaveNotification;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 
 /**
+ The persistence controller's managed object model. (read-only)
+ */
+@property (nonatomic, strong, readonly) NSManagedObjectModel *model;
+
+/**
  Returns a SQLite backed persistence controller initialized with the given arguments.
  
  @param storeURL The URL of the SQLite store to load.
